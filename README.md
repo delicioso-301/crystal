@@ -15,3 +15,9 @@ The minimum viable product (MVP) for this project is to have the user be able to
 3. Mahmoud Ghannam
 4. Rania Abdullah
 5. Sally Ammous
+
+## Wireframe and Database Table:
+
+![Crystal - with about us page](crystal 1.png)
+
+![Crystal - no about us page](crystal-2.png)
