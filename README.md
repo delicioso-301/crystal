@@ -18,4 +18,4 @@ The minimum viable product (MVP) for this project is to have the user be able to
 
 ## Wireframe and Database Table
 
-![Crystal - with about us page](/public/img/crystal.png)
+![Crystal - with about us page](https://i.ibb.co/6ZwLJby/crystal-2.png)
