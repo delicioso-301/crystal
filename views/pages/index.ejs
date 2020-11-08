@@ -3,11 +3,23 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <%- include('../partials/css.ejs') %>
     <title>Crystal</title>
 </head>
 <body>
-    <h1>
-        Hello World
-    </h1>
+    <header>
+
+    </header>
+    <main>
+        <form action="/details" method="POST">
+            <input type="text" name="day" class='dob' placeholder="DD">
+            <input type="text" name="month" class='dob' placeholder="MM">
+            <input type="text" name="year" class='dob' placeholder="YYYY">
+            <input type="submit" value="Discover">
+        </form>
+    </main>
+    <footer>
+        
+    </footer>
 </body>
 </html>
