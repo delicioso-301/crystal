@@ -9,6 +9,7 @@ const DATABASE_URL = process.env.DATABASE_URL;
 const PORT = process.env.PORT || 3000;
 
 //  Dependencies
+
 const methodOverride = require('method-override');
 const superagent = require('superagent');
 const express = require('express');
@@ -41,7 +42,6 @@ app.post('/save', saveFunction);
 app.post('/selection', selectFunction);
 
 
-
 // Handlers
 // home
 // function homepageFunction(request, response) {
@@ -69,25 +69,26 @@ function selectFunction(req, res) {
 
 // details
 function detailsFunction(request, response) {
-  // console.log(request.body);
-  const day = request.body.day.toString();
-  const month = request.body.month.toString();
-  const year = request.body.year.toString();
-  const urlNasa = `https://api.nasa.gov/planetary/apod?date=${year}-${month}-${day}&api_key=${NASA_API_KEY}`;
-  const urlFact = `http://numbersapi.com/${month}/${day}/date?json`;
   let nasaResp;
   let factResp;
+  const day = request.body.day.toString();
+  const month = request.body.month.toString();
+  const yearNasa = yearCheck(request.body.year.toString());
+  const year = request.body.year.toString();
+  const urlNasa = `https://api.nasa.gov/planetary/apod?date=${yearNasa}-${month}-${day}&api_key=${NASA_API_KEY}`;
+  const urlFact = `http://numbersapi.com/${month}/${day}/date?json`;
+
+  let age =  getAge(year+'-'+month+'-'+day);
+  let planet = request.body.planets;
 
   superagent(urlNasa).then((nasaData) => {
     nasaResp = nasaData.body;
-    // console.log(nasaResp);
   }).then(() => {
     superagent(urlFact).then((factData) => {
       factResp = factData.body;
-      // console.log(factResp);
     }).then(() => {
       let birthday = new Birthday(day, month, year, nasaResp, factResp);
-      const responseObject = { birthday: birthday };
+      const responseObject = { birthday: birthday, age:age , planet:planet };
       response.status(200).render('./pages/details.ejs', responseObject);
     });
   }).catch(console.error);
@@ -98,14 +99,8 @@ function saveFunction(request, response) {
   const day = request.body.day.toString();
   const month = request.body.month.toString();
   const year = request.body.year.toString();
-  const nasa = {
-    title: request.body.title,
-    hdurl: request.body.hdurl
-  };
-  const fact = {
-    text: request.body.text,
-    year: request.body.fact_year
-  };
+  const nasa = {title: request.body.title, hdurl: request.body.hdurl};
+  const fact = {text: request.body.text, year: request.body.fact_year};
   const search = 'SELECT * FROM birthday WHERE birth_day=$1 AND birth_month=$2 AND birth_year=$3 ;';
 
   const safevalues = [day, month, year];
@@ -128,6 +123,7 @@ function saveFunction(request, response) {
     }
   });
 }
+
 app.post('/result', (request, response) => {
   //console.log(request.body);
   const results = request.body;
@@ -138,6 +134,7 @@ app.post('/result', (request, response) => {
 
 });
 app.use('*', errorFunction);
+
 // *
 function errorFunction(request, response) {
   response.status(404).render('./pages/error.ejs');
@@ -152,5 +149,23 @@ function Birthday(day, month, year, nasaResp, factResp) {
   this.fact_text = factResp.text;
   this.fact_year = factResp.year;
 
+}
+
+
+//helper
+function getAge(date){
+  let diff = new Date()-new Date(date);
+  let age = Math.floor(diff/31557600000);
+  return age;
+}
+
+function yearCheck(req){
+  let year;
+  if (Number(req) >= 1995){
+    year = req;
+  } else {
+    year = '1995';
+  }
+  return year;
 }
 
