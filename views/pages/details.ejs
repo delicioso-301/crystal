@@ -22,6 +22,30 @@
             <h2>On your birthday in the year <%= birthday.fact_year %> : <%= birthday.fact_text %></h2>
         </section>
         <section>
+            <article>
+                <% if(planet==='EARTH\'S MOON'){ %>
+                <img src="https://www.nasa.gov/sites/default/files/images/main_moon.jpg" alt="moon">
+                <h4>Your age on the Earth's Moon : <%=age%> years</h4>
+                <% }else if(planet==='PLUTO'){ %>
+                    <%  let age2 = age/248; %>
+                    <img src="https://www.nasa.gov/sites/default/files/images/main_pluto.jpg" alt="pluto">
+                    <% if (age2 < 1){ %>
+                    <h4>Your age on Pluto : less than 1 year ! </h4>
+                    <% } else{ %>
+                    <h4>Your age on Pluto : <%= Math.round(age2) %> years</h4>
+                    <% } %>
+                <% } else if(planet==='MARS'){ %>
+                    <%  let age2 = age/1.8219; %>
+                    <img src="https://www.nasa.gov/sites/default/files/images/main_Mars.jpg" alt="mars">
+                    <h4>Your age on Mars : <%= Math.round(age2) %> years </h4>
+                <%} else if(planet==='VENUS'){ %>
+                    <%  let age2 = age/0.616438; %>
+                    <img src="https://www.nasa.gov/sites/default/files/images/main_venus.jpg" alt="venus">
+                    <h4>Your age on Venus : <%= Math.round(age2) %> years </h4>
+                <% } %>
+            </article>    
+        </section>
+        <section>
             <form action="/save" method="post">
             <input type="hidden" name="day" value="<%= birthday.birth_day %>">
                 <input type="hidden" name="month" value="<%= birthday.birth_month %>">
@@ -37,6 +61,7 @@
     <footer>
 
     </footer>
+
 </body>
 
 </html>
