@@ -1,0 +1,31 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+
+<body>
+    <section>
+        <h2> <%=data.date%> </h2>
+        <img src="<%=data.nasa_url%>" alt="">
+        <h2><%=data.nasa_name%></h2>
+        <h3>"<%=data.fact_text%>"</h3>
+    </section>
+    <form action="/selection/<%= data.id %>?_method=put" method="post">
+        <input type="text" name="date" value="<%=data.date%>" disabled>
+        <input type="text" name="fact_text" value="<%=data.fact_text%>">
+        <input type="text" name="nasa_name" value="<%=data.nasa_name%>">
+        <input type="text" name="nasa_url" value="<%=data.nasa_url%>">
+        <input type="hidden" name="id" value="<%=data.id%>">
+        <input type="submit" value="update">
+    </form>
+    <form action="/selection/<%= data.id %>?_method=DELETE" method="post">
+        <input type="submit" value="Delete">
+    </form>
+
+</body>
+
+</html>
