@@ -16,14 +16,14 @@ const cors = require('cors');
 const pg = require('pg');
 const app = express();
 
-// Database Setup
-const client = new pg.Client(DATABASE_URL);
-
 // App setup
 app.use(cors());
 app.set('view engine', 'ejs');
 app.use(methodOverride('_method'));
 app.use(express.urlencoded({ extended: true }));
+
+// Database Setup
+const client = new pg.Client(DATABASE_URL);
 
 // Resources directory
 app.use(express.static('public'));
@@ -36,6 +36,7 @@ client.connect().then(() => {
 // Routes
 app.get('/', homepageFunction);
 app.post('/details', detailsFunction);
+app.post('/save', saveFunction);
 app.use('*', errorFunction);
 
 // Handlers
@@ -46,7 +47,7 @@ function homepageFunction(request, response) {
 
 // details
 function detailsFunction(request, response) {
-  console.log(request.body);
+  // console.log(request.body);
   const day = request.body.day.toString();
   const month = request.body.month.toString();
   const year = request.body.year.toString();
@@ -68,6 +69,38 @@ function detailsFunction(request, response) {
       response.status(200).render('./pages/details.ejs', responseObject);
     });
   }).catch(console.error);
+}
+
+// save
+function saveFunction(request, response) {
+  // console.log(request.body);
+  const day = request.body.day.toString();
+  const month = request.body.month.toString();
+  const year = request.body.year.toString();
+  const nasa = {
+    title: request.body.title,
+    hdurl: request.body.hdurl
+  };
+  const fact = {
+    text: request.body.text,
+    year: request.body.fact_year
+  };
+  const search = 'SELECT * FROM birthday WHERE birth_day=$1 AND birth_month=$2 AND birth_year=$3 AND nasa_name=$4 AND nasa_url=$5 AND fact_year=$6 AND fact_text=$7;';
+  const insert = 'INSERT INTO birthday (birth_day, birth_month, birth_year, nasa_name, nasa_url, fact_year, fact_text) VALUES($1,$2,$3,$4,$5,$6,$7);';
+  let newBirthday = [day, month, year, nasa.title, nasa.hdurl, fact.year, fact.text];
+  // console.log(newBirthday);
+
+  client.query(search, newBirthday).then(birthdayData => {
+    if (birthdayData.rows === []) {
+      console.log('Already in database');
+      response.status(200).redirect('/');
+    } else {
+      client.query(insert, newBirthday).then(birthdayData => {
+        console.log('Not existing in database');
+        console.log(birthdayData);
+      });
+    }
+  });
 }
 
 // *

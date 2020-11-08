@@ -4,7 +4,6 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <%- include('../partials/css.ejs') %>
     <title>Birthday Details</title>
 </head>
 
@@ -14,11 +13,25 @@
             Results
         </h1>
     </header>
-    <section>
-        <img src="<%= birthday.nasa_url %>" alt="<%= birthday.nasa_name %>" >
-        <h2><%= birthday.nasa_name %></h2>
-        <br>
-        <h2>On your birthday in the year <%= birthday.fact_year %> : <%= birthday.fact_text %></h2>
+    <main>
+        <section>
+            <img src="<%= birthday.nasa_url %>" alt="<%= birthday.nasa_name %>" >
+            <h2><%= birthday.nasa_name %></h2>
+            <br>
+            <h2>On your birthday in the year <%= birthday.fact_year %> : <%= birthday.fact_text %></h2>
+        </section>
+        <section>
+            <form action="/save" method="post">
+            <input type="hidden" name="day" value="<%= birthday.birth_day %>">
+            <input type="hidden" name="month" value="<%= birthday.birth_month %>">
+            <input type="hidden" name="year" value="<%= birthday.birth_year %>">
+            <input type="hidden" name="title" value="<%= birthday.nasa_name %>">
+            <input type="hidden" name="hdurl" value="<%= birthday.nasa_url %>">
+            <input type="hidden" name="fact_year" value="<%= birthday.fact_year %>">
+            <input type="hidden" name="text" value="<%= birthday.fact_text %>">
+            <input type="submit" value="Save Birthday">
+            </form>
+        </section>
     </main>
     <footer>
 
