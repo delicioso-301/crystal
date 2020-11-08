@@ -36,16 +36,36 @@ client.connect().then(() => {
 }).catch(() => console.log(`Could not connect to database`));
 
 // Routes
-app.get('/', homepageFunction);
+app.get('/', getFromDatabase);
 app.post('/details', detailsFunction);
 app.post('/save', saveFunction);
-app.use('*', errorFunction);
+app.post('/selection', selectFunction);
+
 
 // Handlers
 // home
-function homepageFunction(request, response) {
-  response.status(200).render('./pages/index.ejs');
+// function homepageFunction(request, response) {
+//   response.status(200).render('./pages/index.ejs',);
+// }
+function getFromDatabase(req, res) {
+  let sql = `select * from birthday;`;
+  client.query(sql).then((data) => {
+    //console.log(data.rows);
+    res.render('./pages/index.ejs', {
+      birthDayInfo: data.rows
+    });
+  });
 }
+//selection
+function selectFunction(req, res) {
+  let data = req.body;
+  console.log(data);
+
+  res.render('./pages/selection.ejs', {
+    data:data
+  });
+}
+
 
 // details
 function detailsFunction(request, response) {
@@ -74,38 +94,51 @@ function detailsFunction(request, response) {
   }).catch(console.error);
 }
 
-// save
+//save
 function saveFunction(request, response) {
-  // console.log(request.body);
   const day = request.body.day.toString();
   const month = request.body.month.toString();
   const year = request.body.year.toString();
   const nasa = {title: request.body.title, hdurl: request.body.hdurl};
   const fact = {text: request.body.text, year: request.body.fact_year};
+  const search = 'SELECT * FROM birthday WHERE birth_day=$1 AND birth_month=$2 AND birth_year=$3 ;';
 
-  const search = 'SELECT * FROM birthday WHERE birth_day=$1 AND birth_month=$2 AND birth_year=$3 AND nasa_name=$4 AND nasa_url=$5 AND fact_year=$6 AND fact_text=$7;';
-  const insert = 'INSERT INTO birthday (birth_day, birth_month, birth_year, nasa_name, nasa_url, fact_year, fact_text) VALUES($1,$2,$3,$4,$5,$6,$7);';
-  let newBirthday = [day, month, year, nasa.title, nasa.hdurl, fact.year, fact.text];
-  // console.log(newBirthday);
-
-  client.query(search, newBirthday).then(birthdayData => {
-    if (birthdayData.rows === []) {
-      console.log('Already in database');
+  const safevalues = [day, month, year];
+  client.query(search, safevalues).then(results => {
+    if (!(results.rowCount === 0)) {
+      //console.log('from data base');
       response.status(200).redirect('/');
     } else {
-      client.query(insert, newBirthday).then(birthdayData => {
-        console.log('Not existing in database');
-        console.log(birthdayData);
+      const urlNasa = `https://api.nasa.gov/planetary/apod?date=${year}-${month}-${day}&api_key=${NASA_API_KEY}`;
+      superagent(urlNasa).then(() => {
+        //console.log('from api');
+        //console.log(nasaData.body);
+        new Birthday(day, month, year, nasa, fact);
+        const insert = 'INSERT INTO birthday (birth_day, birth_month, birth_year, nasa_name, nasa_url, fact_year, fact_text) VALUES($1,$2,$3,$4,$5,$6,$7);';
+        let newBirthday = [day, month, year, nasa.title, nasa.hdurl, fact.year, fact.text];
+        client.query(insert, newBirthday).then(() => {
+          response.status(200).redirect('/');
+        });
       });
     }
   });
 }
 
+app.post('/result', (request, response) => {
+  //console.log(request.body);
+  const results = request.body;
+  response.redirect('/details', {
+    age: results.age,
+    planet: results.planets
+  });
+
+});
+app.use('*', errorFunction);
+
 // *
 function errorFunction(request, response) {
   response.status(404).render('./pages/error.ejs');
 }
-
 // constructor
 function Birthday(day, month, year, nasaResp, factResp) {
   this.birth_day = day;
@@ -115,7 +148,9 @@ function Birthday(day, month, year, nasaResp, factResp) {
   this.nasa_url = nasaResp.hdurl;
   this.fact_text = factResp.text;
   this.fact_year = factResp.year;
+
 }
+
 
 //helper
 function getAge(date){
@@ -133,3 +168,4 @@ function yearCheck(req){
   }
   return year;
 }
+

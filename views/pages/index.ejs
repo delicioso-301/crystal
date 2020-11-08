@@ -1,16 +1,50 @@
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <%- include('../partials/css.ejs') %>
     <title>Crystal</title>
 </head>
+
 <body>
     <header>
 
     </header>
     <main>
+        <section>
+            <% let counter= 5;%>
+            <% birthDayInfo.forEach(element=>{%>
+            <article>
+                <%if(counter>0){%>
+                    <span>
+                        <h2> <%=element.birth_day +'/'+ element.birth_month+'/'+element.birth_year%> </h2>
+                        <h3>"<%=element.fact_text%>"</h3>
+                    </span>
+                    <span>
+                        <h2><%=element.nasa_name%></h2>
+                        <img src="<%=element.nasa_url%>" alt="">
+                    </span>
+                    <form action="/selection" method="POST">
+                        <input type="hidden" name="date" value="<%=element.birth_day +'/'+ element.birth_month+'/'+element.birth_year%>">
+                        <input type="hidden" name="fact_text" value="<%=element.fact_text%>">
+                        <input type="hidden" name="nasa_name" value="<%=element.nasa_name%>">
+                        <input type="hidden" name="nasa_url" value="<%=element.nasa_url%>">
+                        <input type="hidden" name="id" value="<%=element.id%>">
+                        <input type="submit"  value="view details">
+                       
+                    </form>
+                    <%counter--;%>
+
+                <%}%>
+              
+               
+            </article>
+
+            <%})%>
+           
+        </section>
         <form action="/details" method="POST">
             <input type="text" name="day" min="1" max="31" class='dob' placeholder="DD" onchange="if(parseInt(this.value,10)<10)this.value='0'+this.value;">
             <input type="text" name="month" min="1" max="12" class='dob' placeholder="MM" onchange="if(parseInt(this.value,10)<10)this.value='0'+this.value;">
