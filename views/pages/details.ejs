@@ -1,0 +1,28 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <%- include('../partials/css.ejs') %>
+    <title>Birthday Details</title>
+</head>
+
+<body>
+    <header>
+        <h1>
+            Results
+        </h1>
+    </header>
+    <section>
+        <img src="<%= birthday.nasa_url %>" alt="<%= birthday.nasa_name %>" >
+        <h2><%= birthday.nasa_name %></h2>
+        <br>
+        <h2>On your birthday in the year <%= birthday.fact_year %> : <%= birthday.fact_text %></h2>
+    </main>
+    <footer>
+
+    </footer>
+</body>
+
+</html>
