@@ -7,5 +7,6 @@ CREATE TABLE birthday(
   birth_year VARCHAR (255),  
   nasa_name VARCHAR(255),
   nasa_url VARCHAR(255),
-  fact VARCHAR(255)
+  fact_year VARCHAR(255),
+  fact_text TEXT
 )
