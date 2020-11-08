@@ -40,6 +40,9 @@ app.get('/', getFromDatabase);
 app.post('/details', detailsFunction);
 app.post('/save', saveFunction);
 app.post('/selection', selectFunction);
+app.put('/selection/:id',updatedata);
+app.get('/selection/:id',showUpdatedData);
+app.delete('/selection/:id',deleteData);
 
 
 // Handlers
@@ -56,6 +59,36 @@ function getFromDatabase(req, res) {
     });
   });
 }
+
+function updatedata(req,res){
+  const id = req.params.id;
+  //console.log(req.body);
+  let {fact_text, nasa_name, nasa_url} = req.body;
+  let sql = `UPDATE birthday SET fact_text=$1,nasa_name=$2,nasa_url=$3 WHERE ID =$4 RETURNING *;`;
+  let safeValues = [fact_text,nasa_name,nasa_url, id];
+  client.query(sql, safeValues).then((data) => {
+    //console.log(data.rows);
+    res.redirect(`/selection/${data.rows[0].id}`);
+  });
+}
+function showUpdatedData(req,res){
+  let sql = `select * from birthday where id=$1;`;
+  let safeValues = [req.params.id];
+  client.query(sql, safeValues).then(data => {
+    //console.log(data.rows[0]);
+    res.render('./pages/selection.ejs', {
+      data: data.rows[0]
+    });
+  });
+}
+function deleteData(req,res){
+  const id = req.params.id;
+  const sql = 'DELETE FROM birthday WHERE id=$1';
+  client.query(sql, [id]).then(()=>{
+    res.redirect('/');
+  });
+}
+
 //selection
 function selectFunction(req, res) {
   let data = req.body;
