@@ -27,6 +27,7 @@ const client = new pg.Client(DATABASE_URL);
 
 // Resources directory
 app.use(express.static('public'));
+app.use(express.static('views'));
 
 // Listen
 client.connect().then(() => {
@@ -37,7 +38,7 @@ client.connect().then(() => {
 app.get('/', homepageFunction);
 app.post('/details', detailsFunction);
 app.post('/save', saveFunction);
-app.use('*', errorFunction);
+
 
 // Handlers
 // home
@@ -103,6 +104,16 @@ function saveFunction(request, response) {
   });
 }
 
+app.post('/result', (request, response) => {
+  console.log(request.body);
+  const results = request.body;
+  response.redirect('/details', {
+    age: results.age,
+    planet: results.planets
+  });
+
+});
+app.use('*', errorFunction);
 // *
 function errorFunction(request, response) {
   response.status(404).render('./pages/error.ejs');
