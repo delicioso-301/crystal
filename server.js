@@ -123,15 +123,22 @@ function selectFunction(req, res) {
 }
 
 // Update and Delete
-function updateData(req,res){
-  const id = req.params.id;
-  let nasa_name = req.body.nasa_name;
-  let sql = `UPDATE birthday SET nasa_name=$1 WHERE ID=$2 RETURNING *;`;
-  let safeValues = [nasa_name, id];
-  client.query(sql, safeValues).then((data) => {
-    res.redirect(`/selection/${data.rows[0].id}`);
+function updateData(req, res) {
+  const name = req.body.user_name;
+  const pass = req.body.user_password;
+  const search = 'SELECT * FROM users WHERE user_name=$1 AND user_password=$2;';
+  client.query(search, [name, pass]).then((data) => {
+    if (data.rows[0] === undefined) {
+      res.send('<script>alert("Invalid USER or PASSWORD entered.");window.location="/"</script>');
+    } else if (Number(req.params.id) === Number(data.rows[0].birthday_id)) {
+      let sql = `UPDATE birthday SET nasa_name=$1 WHERE ID=$2 RETURNING *;`;
+      client.query(sql, [req.body.nasa_name,data.rows[0].birthday_id]).then((newData) => {
+        res.redirect(`/selection/${newData.rows[0].id}`);
+      });
+    }
   });
 }
+
 function showUpdatedData(req,res){
   let sql = `select * from birthday where id=$1;`;
   let safeValues = [req.params.id];
