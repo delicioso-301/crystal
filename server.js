@@ -40,7 +40,7 @@ app.get('/', getFromDatabase);
 app.post('/details', detailsFunction);
 app.post('/save', saveFunction);
 app.post('/selection', selectFunction);
-app.put('/selection/:id',updatedata);
+app.put('/selection/:id',updateData);
 app.get('/selection/:id',showUpdatedData);
 app.delete('/selection/:id',deleteData);
 app.use('*', errorFunction);
@@ -57,41 +57,6 @@ function getFromDatabase(req, res) {
   });
 }
 
-// Update and Delete
-function updatedata(req,res){
-  const id = req.params.id;
-  let {fact_text, nasa_name, nasa_url} = req.body;
-  let sql = `UPDATE birthday SET fact_text=$1,nasa_name=$2,nasa_url=$3 WHERE ID =$4 RETURNING *;`;
-  let safeValues = [fact_text,nasa_name,nasa_url, id];
-  client.query(sql, safeValues).then((data) => {
-    res.redirect(`/selection/${data.rows[0].id}`);
-  });
-}
-function showUpdatedData(req,res){
-  let sql = `select * from birthday where id=$1;`;
-  let safeValues = [req.params.id];
-  client.query(sql, safeValues).then(data => {
-    res.render('./pages/selection.ejs', {
-      data: data.rows[0]
-    });
-  });
-}
-function deleteData(req,res){
-  const id = req.params.id;
-  const sql = 'DELETE FROM birthday WHERE id=$1';
-  client.query(sql, [id]).then(()=>{
-    res.redirect('/');
-  });
-}
-
-//Selection
-function selectFunction(req, res) {
-  let data = req.body;
-  res.render('./pages/selection.ejs', {
-    data:data
-  });
-}
-
 // Details
 function detailsFunction(request, response) {
   let nasaResp;
@@ -99,6 +64,7 @@ function detailsFunction(request, response) {
   const day = request.body.day.toString();
   const month = request.body.month.toString();
   const yearNasa = yearCheck(request.body.year.toString());
+  console.log(yearNasa);
   const year = request.body.year.toString();
   const urlNasa = `https://api.nasa.gov/planetary/apod?date=${yearNasa}-${month}-${day}&api_key=${NASA_API_KEY}`;
   const urlFact = `http://numbersapi.com/${month}/${day}/date?json`;
@@ -113,6 +79,7 @@ function detailsFunction(request, response) {
       factResp = factData.body;
     }).then(() => {
       let birthday = new Birthday(day, month, year, nasaResp, factResp);
+      console.log(birthday);
       const responseObject = { birthday: birthday, age:age , planet:planet };
       response.status(200).render('./pages/details.ejs', responseObject);
     });
@@ -146,13 +113,40 @@ function saveFunction(request, response) {
   });
 }
 
-app.post('/result', (request, response) => {
-  const results = request.body;
-  response.redirect('/details', {
-    age: results.age,
-    planet: results.planets
+//Selection
+function selectFunction(req, res) {
+  let data = req.body;
+  res.render('./pages/selection.ejs', {
+    data:data
   });
-});
+}
+
+// Update and Delete
+function updateData(req,res){
+  const id = req.params.id;
+  let nasa_name = req.body.nasa_name;
+  let sql = `UPDATE birthday SET nasa_name=$1 WHERE ID=$2 RETURNING *;`;
+  let safeValues = [nasa_name, id];
+  client.query(sql, safeValues).then((data) => {
+    res.redirect(`/selection/${data.rows[0].id}`);
+  });
+}
+function showUpdatedData(req,res){
+  let sql = `select * from birthday where id=$1;`;
+  let safeValues = [req.params.id];
+  client.query(sql, safeValues).then(data => {
+    res.render('./pages/selection.ejs', {
+      data: data.rows[0]
+    });
+  });
+}
+function deleteData(req,res){
+  const id = req.params.id;
+  const sql = 'DELETE FROM birthday WHERE id=$1';
+  client.query(sql, [id]).then(()=>{
+    res.redirect('/');
+  });
+}
 
 // *
 function errorFunction(request, response) {
@@ -179,11 +173,10 @@ function getAge(date){
 }
 function yearCheck(req){
   let year;
-  if (Number(req) >= 1995){
+  if (Number(req) >= 1996){
     year = req;
   } else {
-    year = '1995';
+    year = '1996';
   }
   return year;
 }
-
