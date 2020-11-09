@@ -27,8 +27,9 @@
           <img src="<%=element.nasa_url%>" alt="">
         </span>
         <form action="/selection" method="POST">
-          <input type="hidden" name="date"
-            value="<%=element.birth_day +'/'+ element.birth_month+'/'+element.birth_year%>">
+          <input type="hidden" name="birth_day" value="<%=element.birth_day %>">
+          <input type="hidden" name="birth_month" value="<%= element.birth_month %>">
+          <input type="hidden" name="birth_year" value="<%=element.birth_year%>">
           <input type="hidden" name="fact_text" value="<%=element.fact_text%>">
           <input type="hidden" name="nasa_name" value="<%=element.nasa_name%>">
           <input type="hidden" name="nasa_url" value="<%=element.nasa_url%>">

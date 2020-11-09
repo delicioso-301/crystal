@@ -2,33 +2,27 @@
 <html lang="en">
 
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <%- include('../partials/css.ejs') %>
-    <title>Details</title>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <%- include('../partials/css.ejs') %>
+  <title>Details</title>
 </head>
 
 <body>
-    <section>
-        <h2> <%=data.date%> </h2>
-        <img src="<%=data.nasa_url%>" alt="">
-        <h2><%=data.nasa_name%></h2>
-        <h3>"<%=data.fact_text%>"</h3>
-    </section>
-    <form action="/selection/<%= data.id %>?_method=put" method="post">
-        <input type="text" placeholder="Username" name='user_name' required>
-        <input type="password" placeholder="Password" name='user_password' required>
-        <input type="hidden" name="date" value="<%=data.date%>">
-        <input type="hidden" name="fact_hidden" value="<%=data.fact_hidden%>">
-        <label for="nasa_name">Enter your name to rename the image:</label>
-        <input type="text" name="nasa_name" value="<%=data.nasa_name%>">
-        <input type="hidden" name="nasa_url" value="<%=data.nasa_url%>">
-        <input type="hidden" name="id" value="<%=data.id%>">
-        <input type="submit" value="Update Name">
-    </form>
-    <form action="/selection/<%= data.id %>?_method=DELETE" method="post">
-        <input type="submit" value="Delete">
-    </form>
+  <section>
+    <h2><%=data.birth_day +'/'+ data.birth_month+'/'+data.birth_year%></h2>
+    <img src="<%=data.nasa_url%>" alt="">
+    <h2><%=data.nasa_name%></h2>
+    <h3>"<%=data.fact_text%>"</h3>
+  </section>
+  <form action="/selection/<%= data.id %>?_method=put" method="post">
+    <input type="text" placeholder="Username" name='user_name' required>
+    <input type="password" placeholder="Password" name='user_password' required>
+    <label for="nasa_name">Enter your name to rename the image:</label>
+    <input type="text" name="nasa_name" value="<%=data.nasa_name%>">
+    <input type="submit" name='update' value="Update Name">
+    <input type="submit" name='delete' value="Delete" formaction="/selection/<%= data.id %>?_method=DELETE">
+  </form>
 
 </body>
 
