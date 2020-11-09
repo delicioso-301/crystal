@@ -148,11 +148,23 @@ function showUpdatedData(req,res){
     });
   });
 }
-function deleteData(req,res){
-  const id = req.params.id;
-  const sql = 'DELETE FROM birthday WHERE id=$1';
-  client.query(sql, [id]).then(()=>{
-    res.redirect('/');
+
+function deleteData(req, res) {
+  const name = req.body.user_name;
+  const pass = req.body.user_password;
+  const search = 'SELECT * FROM users WHERE user_name=$1 AND user_password=$2;';
+  client.query(search, [name, pass]).then((data) => {
+    if (data.rows[0] === undefined) {
+      res.send('<script>alert("Invalid USER or PASSWORD entered.");window.location="/"</script>');
+    } else if (Number(req.params.id) === Number(data.rows[0].birthday_id)) {
+      const sql = 'DELETE FROM users WHERE user_id=$1';
+      client.query(sql, [data.rows[0].user_id]).then(() => {
+        const sqlTwo = 'DELETE FROM birthday WHERE id=$1';
+        client.query(sqlTwo, [data.rows[0].birthday_id]).then(() => {
+          res.redirect('/');
+        });
+      });
+    }
   });
 }
 
