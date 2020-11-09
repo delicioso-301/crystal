@@ -4,7 +4,8 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Document</title>
+    <%- include('../partials/css.ejs') %>
+    <title>Details</title>
 </head>
 
 <body>
@@ -15,12 +16,13 @@
         <h3>"<%=data.fact_text%>"</h3>
     </section>
     <form action="/selection/<%= data.id %>?_method=put" method="post">
-        <input type="text" name="date" value="<%=data.date%>" disabled>
-        <input type="text" name="fact_text" value="<%=data.fact_text%>">
+        <input type="hidden" name="date" value="<%=data.date%>">
+        <input type="hidden" name="fact_hidden" value="<%=data.fact_hidden%>">
+        <label for="nasa_name">Enter your name to rename the image:</label>
         <input type="text" name="nasa_name" value="<%=data.nasa_name%>">
-        <input type="text" name="nasa_url" value="<%=data.nasa_url%>">
+        <input type="hidden" name="nasa_url" value="<%=data.nasa_url%>">
         <input type="hidden" name="id" value="<%=data.id%>">
-        <input type="submit" value="update">
+        <input type="submit" value="Update Name">
     </form>
     <form action="/selection/<%= data.id %>?_method=DELETE" method="post">
         <input type="submit" value="Delete">
