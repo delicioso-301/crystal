@@ -16,6 +16,8 @@
         <h3>"<%=data.fact_text%>"</h3>
     </section>
     <form action="/selection/<%= data.id %>?_method=put" method="post">
+        <input type="text" placeholder="Username" name='user_name'>
+        <input type="password" placeholder="Password" name='user_password'>
         <input type="hidden" name="date" value="<%=data.date%>">
         <input type="hidden" name="fact_hidden" value="<%=data.fact_hidden%>">
         <label for="nasa_name">Enter your name to rename the image:</label>

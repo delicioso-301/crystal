@@ -46,9 +46,12 @@
            
         </section>
         <form action="/details" method="POST">
-            <input type="number" name="day" min="01" max="31" class='dob' placeholder="DD" onclick="this.value='01'" onchange="if(parseInt(this.value,10)<10 && this.value.length<2)this.value='0'+this.value;" required>
-            <input type="number" name="month" min="01" max="12" class='dob' placeholder="MM" onclick="this.value='01'" onchange="if(parseInt(this.value,10)<10 && this.value.length<2)this.value='0'+this.value;" required>
-            <input type="number" name="year" min="1900" max="2020" class='dob' placeholder="YYYY" onclick="this.value='1990'" required>
+            <input type="text" placeholder="Username" name='user_name' class='dob' />
+            <input type="email" placeholder="Email" name='user_email' class='dob' />
+            <input type="password" placeholder="Password" name='user_password' class='dob' />
+            <input type="number" name="day" min="01" max="31" class='dob' placeholder="DD" onchange="if(parseInt(this.value,10)<10 && this.value.length<2)this.value='0'+this.value;" required>
+            <input type="number" name="month" min="01" max="12" class='dob' placeholder="MM" onchange="if(parseInt(this.value,10)<10 && this.value.length<2)this.value='0'+this.value;" required>
+            <input type="number" name="year" min="1900" max="2020" class='dob' placeholder="YYYY" required>
             <select name="planets" id="planets">
                 <option>SELECT PLANET</option>
                 <option value="PLUTO">PLUTO</option>
