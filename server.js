@@ -9,7 +9,6 @@ const DATABASE_URL = process.env.DATABASE_URL;
 const PORT = process.env.PORT || 3000;
 
 //  Dependencies
-
 const methodOverride = require('method-override');
 const superagent = require('superagent');
 const express = require('express');
@@ -64,12 +63,12 @@ function detailsFunction(request, response) {
   const day = request.body.day.toString();
   const month = request.body.month.toString();
   const yearNasa = yearCheck(request.body.year.toString());
-  console.log(yearNasa);
+  const user = { name: request.body.user_name, pass: request.body.user_password, email: request.body.user_email };
   const year = request.body.year.toString();
   const urlNasa = `https://api.nasa.gov/planetary/apod?date=${yearNasa}-${month}-${day}&api_key=${NASA_API_KEY}`;
   const urlFact = `http://numbersapi.com/${month}/${day}/date?json`;
 
-  let age =  getAge(year+'-'+month+'-'+day);
+  let age = getAge(year + '-' + month + '-' + day);
   let planet = request.body.planets;
 
   superagent(urlNasa).then((nasaData) => {
@@ -79,8 +78,7 @@ function detailsFunction(request, response) {
       factResp = factData.body;
     }).then(() => {
       let birthday = new Birthday(day, month, year, nasaResp, factResp);
-      console.log(birthday);
-      const responseObject = { birthday: birthday, age:age , planet:planet };
+      const responseObject = { birthday: birthday, age: age, planet: planet, user:user};
       response.status(200).render('./pages/details.ejs', responseObject);
     });
   }).catch(console.error);
@@ -88,26 +86,29 @@ function detailsFunction(request, response) {
 
 // Save
 function saveFunction(request, response) {
+  // console.log(request.body);
   const day = request.body.day.toString();
   const month = request.body.month.toString();
   const year = request.body.year.toString();
-  const nasa = {title: request.body.title, hdurl: request.body.hdurl};
-  const fact = {text: request.body.text, year: request.body.fact_year};
-  const search = 'SELECT * FROM birthday WHERE birth_day=$1 AND birth_month=$2 AND birth_year=$3 ;';
+  const nasa = { title: request.body.title, hdurl: request.body.hdurl };
+  const fact = { text: request.body.text, year: request.body.fact_year };
+  const user = { name: request.body.user_name, pass: request.body.user_password, email: request.body.user_email };
 
-  const safeValues = [day, month, year];
+  const search = 'SELECT u.birthday_id FROM users u WHERE u.user_name=$1 AND u.user_password=$2;';
+  const safeValues = [user.name, user.pass];
+
   client.query(search, safeValues).then(results => {
     if (!(results.rowCount === 0)) {
-      response.status(200).redirect('/');
+      console.log('already in database');
     } else {
-      const urlNasa = `https://api.nasa.gov/planetary/apod?date=${year}-${month}-${day}&api_key=${NASA_API_KEY}`;
-      superagent(urlNasa).then(() => {
-        new Birthday(day, month, year, nasa, fact);
-        const insert = 'INSERT INTO birthday (birth_day, birth_month, birth_year, nasa_name, nasa_url, fact_year, fact_text) VALUES($1,$2,$3,$4,$5,$6,$7);';
-        let newBirthday = [day, month, year, nasa.title, nasa.hdurl, fact.year, fact.text];
-        client.query(insert, newBirthday).then(() => {
-          response.status(200).redirect('/');
-        });
+      const insertBirthday = 'INSERT INTO birthday (birth_day, birth_month, birth_year, nasa_name, nasa_url, fact_year, fact_text) VALUES($1,$2,$3,$4,$5,$6,$7);';
+      const insertUser = 'INSERT INTO users(user_name, user_password, user_email, birthday_id) VALUES ($1,$2,$3,(SELECT MAX(Id) FROM birthday));';
+
+      let newBirthday = [day, month, year, nasa.title, nasa.hdurl, fact.year, fact.text];
+      let newUser = [user.name, user.pass, user.email];
+
+      client.query(insertBirthday, newBirthday).then(() => {
+        client.query(insertUser, newUser);
       });
     }
   });
@@ -166,11 +167,14 @@ function Birthday(day, month, year, nasaResp, factResp) {
 }
 
 // Helpers
+
+// Calculate user age
 function getAge(date){
   let diff = new Date()-new Date(date);
   let age = Math.floor(diff/31557600000);
   return age;
 }
+// Check NASA API year input
 function yearCheck(req){
   let year;
   if (Number(req) >= 1996){
