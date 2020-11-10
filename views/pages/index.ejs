@@ -9,20 +9,21 @@
 </head>
 
 <body>
-  <%- include('../partials/header.ejs') %>
+  <!-- <%- include('../partials/header.ejs') %> -->
   <main>
     <section id='banner'>
       <% for(let i = (length-5); i < length; i++ ){%>
       <section class='banner'>
-        <span>
-          <h2> <%=birthDayInfo[i].birth_day +'/'+ birthDayInfo[i].birth_month+'/'+birthDayInfo[i].birth_year%> </h2>
-          <h3>"<%=birthDayInfo[i].fact_text%>"</h3>
-        </span>
-        <span>
-          <h2><%=birthDayInfo[i].nasa_name%></h2>
+        <span id="span1">
           <img src="<%=birthDayInfo[i].nasa_url%>" alt="">
         </span>
-        <form action="/selection" method="POST">
+        <span id="span2">
+          <h2> <%=birthDayInfo[i].birth_day +'/'+ birthDayInfo[i].birth_month+'/'+birthDayInfo[i].birth_year%> </h2>
+          <h3><%=birthDayInfo[i].nasa_name%></h3>
+          <h4>"<%=birthDayInfo[i].fact_text%>"</h4>
+        </span>
+       
+        <form  action="/selection" method="POST">
           <input type="hidden" name="birth_day" value="<%=birthDayInfo[i].birth_day %>">
           <input type="hidden" name="birth_month" value="<%= birthDayInfo[i].birth_month %>">
           <input type="hidden" name="birth_year" value="<%=birthDayInfo[i].birth_year%>">
@@ -32,10 +33,24 @@
           <input type="hidden" name="id" value="<%=birthDayInfo[i].id%>">
           <input type="submit" value="view details" id='details-submit'>
         </form>
+        <span id="span3">
+          <a class="previous" onclick="nextSlide(-1)">&#10094;</a>
+          <a class="next" onclick="nextSlide(1)">&#10095;</a>  
+        </span>
+      
+        
       </section>
       <%}%>
+      <span id="span4" >
+        <span class="pick-section" onclick="currentSlide(1)"></span> 
+        <span class="pick-section" onclick="currentSlide(2)"></span> 
+        <span class="pick-section" onclick="currentSlide(3)"></span> 
+        <span class="pick-section" onclick="currentSlide(4)"></span> 
+        <span class="pick-section" onclick="currentSlide(5)"></span> 
+      </span>
+   
 
-    </section id='sign-up'>
+    </section>
     <form id='search' action="/details" method="POST">
       <label for="user_name" class='dob-label'>Sign Up to edit later</label>
       <input type="text" placeholder="Username" name='user_name' class='dob'>
@@ -61,6 +76,34 @@
   <footer>
 
   </footer>
+  <script>
+    let slideIndex = 1;
+    showSlides(slideIndex);
+
+    function nextSlide(n) {
+      showSlides(slideIndex += n);
+    }
+
+    function currentSlide(n) {
+      showSlides(slideIndex = n);
+    }
+
+    function showSlides(n) {
+      var i;
+      var slides = document.getElementsByClassName("banner");
+      var pickSection = document.getElementsByClassName("pick-section");
+      if (n > slides.length) { slideIndex = 1 }
+      if (n < 1) { slideIndex = slides.length }
+      for (i = 0; i < slides.length; i++) {
+        slides[i].style.display = "none";
+      }
+      for (i = 0; i < pickSection.length; i++) {
+        pickSection[i].className = pickSection[i].className.replace(" active", "");
+      }
+      slides[slideIndex - 1].style.display = "block";
+      pickSection[slideIndex - 1].className += " active";
+    }
+  </script>
 </body>
 
 </html>

@@ -11,37 +11,42 @@
 <body>
   <%- include('../partials/header.ejs') %>
   <main>
-    <section class='details'>
-      <h2><%= 'Hello ' + user.name + '!' %></h2>
-      <img src="<%= birthday.nasa_url %>" alt="<%= birthday.nasa_name %>">
-      <h3><%= birthday.nasa_name %></h3>
-      <br>
-      <h4><%= birthday.fact_text %></h4>
+    <section id="container-two">
+      <section class='details'>
+          <img src="<%= birthday.nasa_url %>" alt="<%= birthday.nasa_name %>">
+        <span id="second-span">
+          <h3><%= birthday.nasa_name %></h3>
+        </span>
+        <h2><%= 'Hello ' + user.name + '!' %></h2>
+        <br>
+        <h4><%= birthday.fact_text %></h4>
+      </section>
+      <section>
+        <article id='planet-age'>
+          <% if(planet==='EARTH\'S MOON'){ %>
+           <img src="https://www.flaticon.com/svg/static/icons/svg/788/788268.svg" alt="">
+          <h4>Your age on the Earth's Moon : <br> <%=age%> years</h4>
+          <% }else if(planet==='PLUTO'){ %>
+          <%  let age2 = age/248; %>
+            <img src="https://www.flaticon.com/svg/static/icons/svg/788/788268.svg" alt="pluto">
+          <% if (age2 < 1){ %>
+          <h4>Your age on Pluto : <br> less than 1 year ! </h4>
+          <% } else{ %>
+          <h4>Your age on Pluto : <br> <%= Math.round(age2) %> years</h4>
+          <% } %>
+          <% } else if(planet==='MARS'){ %>
+          <%  let age2 = age/1.8219; %>
+            <img src="https://www.flaticon.com/svg/static/icons/svg/788/788268.svg" alt="mars">
+          <h4>Your age on Mars : <br> <%= Math.round(age2) %> years </h4>
+          <%} else if(planet==='VENUS'){ %>
+          <%  let age2 = age/0.616438; %>
+            <img src="https://www.flaticon.com/svg/static/icons/svg/788/788268.svg" alt="venus">
+          <h4>Your age on Venus : <br> <%= Math.round(age2) %> years </h4>
+          <% } %>
+        </article>
+      </section>
     </section>
-    <section>
-      <article id='planet-age'>
-        <% if(planet==='EARTH\'S MOON'){ %>
-        <img src="https://www.nasa.gov/sites/default/files/images/main_moon.jpg" alt="moon">
-        <h4>Your age on the Earth's Moon : <%=age%> years</h4>
-        <% }else if(planet==='PLUTO'){ %>
-        <%  let age2 = age/248; %>
-        <img src="https://www.nasa.gov/sites/default/files/images/main_pluto.jpg" alt="pluto">
-        <% if (age2 < 1){ %>
-        <h4>Your age on Pluto : less than 1 year ! </h4>
-        <% } else{ %>
-        <h4>Your age on Pluto : <%= Math.round(age2) %> years</h4>
-        <% } %>
-        <% } else if(planet==='MARS'){ %>
-        <%  let age2 = age/1.8219; %>
-        <img src="https://www.nasa.gov/sites/default/files/images/main_Mars.jpg" alt="mars">
-        <h4>Your age on Mars : <%= Math.round(age2) %> years </h4>
-        <%} else if(planet==='VENUS'){ %>
-        <%  let age2 = age/0.616438; %>
-        <img src="https://www.nasa.gov/sites/default/files/images/main_venus.jpg" alt="venus">
-        <h4>Your age on Venus : <%= Math.round(age2) %> years </h4>
-        <% } %>
-      </article>
-    </section>
+    
     <section>
       <form id='auto_submit' name='autoSubmit' action="/save" method="post">
         <input type="hidden" name='user_name' value="<%= user.name %>">
