@@ -9,9 +9,15 @@
 </head>
 
 <body>
+
   <%- include('../partials/headerhome.ejs') %>
-  <main>
-    <section id='banner'>
+  <section id="container">
+  <div id='stars'></div>
+  < div id='stars2'></div>
+  <div id='stars3'></div>
+  <div id='title'></div>
+    <main>
+       <section id='banner'>
       <% for(let i = (length-5); i < length; i++ ){%>
       <section class='banner'>
         <span id="span1">
@@ -75,10 +81,106 @@
         <input type="submit" value="Discover" id='search-submit' class='dob'>
       </form>
     </section>
-    <section id='about-us'>
 
+    <section id='about-us'>
+      <section id="firstSec">
+          <h1>Meet Our Team</h1>
+      </section>
+      <section id="all">
+        <section class="team-member">
+            <section class="team-member-holder">
+                <section class="team-member-image">
+                    <img src="imgs/dana.png" alt="Dana" />
+                    <section class="overlay-content">
+                        <section class="team-member-social-list">
+                            <a class="team-member-social-list-item" href="#"><i class="fa fa-facebook"></i></a>
+                            <a class="team-member-social-list-item" href="#"><i class="fa fa-twitter"></i></a>
+                            <a class="team-member-social-list-item" href="#"><i class="fa fa-envelope"></i></a>
+                        </section>
+                        <a class="view-profile profile-read-more" href="#">Portfolio</a>
+                    </section>
+                </section>
+                <section class="team-member-meta">
+                    <h4 class="team-member-name">Dana Kiswani </h4>
+                </section>
+            </section>
+        </section>
+        <section class="team-member">
+            <section class="team-member-holder">
+                <section class="team-member-image">
+                    <img src="imgs/farah.png" alt="Farah" />
+                    <section class="overlay-content">
+                        <section class="team-member-social-list">
+                            <a class="team-member-social-list-item" href="#"><i class="fa fa-facebook"></i></a>
+                            <a class="team-member-social-list-item" href="#"><i class="fa fa-twitter"></i></a>
+                            <a class="team-member-social-list-item" href="#"><i class="fa fa-envelope"></i></a>
+                        </section>
+                        <a class="view-profile profile-read-more" href="#">Portfolio</a>
+                    </section>
+                </section>
+                <section class="team-member-meta">
+                    <h4 class="team-member-name">Farah Alzuot</h4>
+                </section>
+            </section>
+        </section>
+        <section class="team-member">
+            <section class="team-member-holder">
+                <section class="team-member-image">
+                    <img src="imgs/mahmoud.png" alt="Mohammad" />
+                    <section class="overlay-content">
+                        <section class="team-member-social-list">
+                            <a class="team-member-social-list-item" href="#"><i class="fa fa-facebook"></i></a>
+                            <a class="team-member-social-list-item" href="#"><i class="fa fa-twitter"></i></a>
+                            <a class="team-member-social-list-item" href="#"><i class="fa fa-envelope"></i></a>
+                        </section>
+                        <a class="view-profile profile-read-more" href="#">Portfolio</a>
+                    </section>
+                </section>
+                <section class="team-member-meta">
+                    <h4 class="team-member-name">Mahmoud Ghannam</h4>
+                </section>
+            </section>
+        </section>
+        <section class="team-member">
+            <section class="team-member-holder">
+                <section class="team-member-image">
+                    <img src="imgs/rania.png" alt="rania" />
+                    <section class="overlay-content">
+                        <section class="team-member-social-list">
+                            <a class="team-member-social-list-item" href="#"><i class="fa fa-facebook"></i></a>
+                            <a class="team-member-social-list-item" href="#"><i class="fa fa-twitter"></i></a>
+                            <a class="team-member-social-list-item" href="#"><i class="fa fa-envelope"></i></a>
+                        </section>
+                        <a class="view-profile profile-read-more" href="#">Portfolio</a>
+                    </section>
+                </section>
+                <section class="team-member-meta">
+                    <h4 class="team-member-name">Rania Abdullah</h4>
+                </section>
+            </section>
+        </section>
+        <section class="team-member">
+            <section class="team-member-holder">
+                <section class="team-member-image">
+                    <img src="../imgs/sally.png" alt="sally" />
+                    <section class="overlay-content">
+                        <section class="team-member-social-list">
+                            <a class="team-member-social-list-item" href="#"><i class="fa fa-facebook"></i></a>
+                            <a class="team-member-social-list-item" href="#"><i class="fa fa-twitter"></i></a>
+                            <a class="team-member-social-list-item" href="#"><i class="fa fa-envelope"></i></a>
+                        </section>
+                        <a class="view-profile profile-read-more" href="#">Portfolio</a>
+                    </section>
+                </section>
+                <section class="team-member-meta">
+                    <h4 class="team-member-name">Sally Ammous</h4>
+                </section>
+            </section>
+        </section>
+    </section>
     </section>
   </main>
+ </section>
   
   <%- include('../partials/footer.ejs') %>
   

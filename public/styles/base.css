@@ -4,15 +4,14 @@
 
 body {
     font-family: 'Hind Vadodara', sans-serif;
-}
-main{
-    display: block;
     display: flex;
     justify-content: center;
     flex-wrap: wrap;
-    /* text-align: center; */
+}
+main{
+    display: block;
 }
 img{
     height: 200px;
 }
-  
+
