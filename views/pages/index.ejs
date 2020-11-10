@@ -10,54 +10,155 @@
 
 <body>
   <%- include('../partials/header.ejs') %>
-  <main>
-    <section id='banner'>
-      <% for(let i = (length-5); i < length; i++ ){%>
-      <section class='banner'>
-        <span>
-          <h2> <%=birthDayInfo[i].birth_day +'/'+ birthDayInfo[i].birth_month+'/'+birthDayInfo[i].birth_year%> </h2>
-          <h3>"<%=birthDayInfo[i].fact_text%>"</h3>
-        </span>
-        <span>
-          <h2><%=birthDayInfo[i].nasa_name%></h2>
-          <img src="<%=birthDayInfo[i].nasa_url%>" alt="">
-        </span>
-        <form action="/selection" method="POST">
-          <input type="hidden" name="birth_day" value="<%=birthDayInfo[i].birth_day %>">
-          <input type="hidden" name="birth_month" value="<%= birthDayInfo[i].birth_month %>">
-          <input type="hidden" name="birth_year" value="<%=birthDayInfo[i].birth_year%>">
-          <input type="hidden" name="fact_text" value="<%=birthDayInfo[i].fact_text%>">
-          <input type="hidden" name="nasa_name" value="<%=birthDayInfo[i].nasa_name%>">
-          <input type="hidden" name="nasa_url" value="<%=birthDayInfo[i].nasa_url%>">
-          <input type="hidden" name="id" value="<%=birthDayInfo[i].id%>">
-          <input type="submit" value="view details" id='details-submit'>
+  <section id="container">
+<div id='stars'></div>
+<div id='stars2'></div>
+<div id='stars3'></div>
+<div id='title'></div>
+    <main>
+      <section id='banner'>
+        <% for(let i = (length-3); i < length; i++ ){%>
+        <section class='banner'>
+          <span>
+            <h2> <%=birthDayInfo[i].birth_day +'/'+ birthDayInfo[i].birth_month+'/'+birthDayInfo[i].birth_year%> </h2>
+            <h3>"<%=birthDayInfo[i].fact_text%>"</h3>
+          </span>
+          <span>
+            <h2><%=birthDayInfo[i].nasa_name%></h2>
+            <img src="<%=birthDayInfo[i].nasa_url%>" alt="">
+          </span>
+          <form action="/selection" method="POST">
+            <input type="hidden" name="birth_day" value="<%=birthDayInfo[i].birth_day %>">
+            <input type="hidden" name="birth_month" value="<%= birthDayInfo[i].birth_month %>">
+            <input type="hidden" name="birth_year" value="<%=birthDayInfo[i].birth_year%>">
+            <input type="hidden" name="fact_text" value="<%=birthDayInfo[i].fact_text%>">
+            <input type="hidden" name="nasa_name" value="<%=birthDayInfo[i].nasa_name%>">
+            <input type="hidden" name="nasa_url" value="<%=birthDayInfo[i].nasa_url%>">
+            <input type="hidden" name="id" value="<%=birthDayInfo[i].id%>">
+            <input type="submit" value="view details" id='details-submit'>
+          </form>
+        </section>
+        <%}%>
+        </section>
+        <form id='search' action="/details" method="POST">
+          <label for="user_name" class='dob-label'>Sign Up to edit later</label>
+          <input type="text" placeholder="Username" name='user_name' class='dob'>
+          <input type="password" placeholder="Password" name='user_password' class='dob' pattern=".{8,}"
+            title="Password needs to be eight or more characters">
+          <label for="day" class='dob-label'>Enter your birthday</label>
+          <input type="number" name="day" min="01" max="31" class='dob' placeholder="DD"
+            onchange="if(parseInt(this.value,10)<10 && this.value.length<2)this.value='0'+this.value;" required>
+          <input type="number" name="month" min="01" max="12" class='dob' placeholder="MM"
+            onchange="if(parseInt(this.value,10)<10 && this.value.length<2)this.value='0'+this.value;" required>
+          <input type="number" name="year" min="1900" max="2020" class='dob' placeholder="YYYY" required>
+          <label for="planets" class='dob-label'>Pick a planet to see your age there:</label>
+          <select name="planets" id="planets" class='dob'>
+            <option>SELECT PLANET</option>
+            <option value="PLUTO">PLUTO</option>
+            <option value="EARTH'S MOON">EARTH'S MOON</option>
+            <option value="MARS">MARS</option>
+            <option value="VENUS">VENUS</option>
+          </select>
+          <input type="submit" value="Discover" id='search-submit' class='dob'>
         </form>
+        <section id="firstSec">
+          <h1>Meet Our Team</h1>
+  
       </section>
-      <%}%>
-
-    </section id='sign-up'>
-    <form id='search' action="/details" method="POST">
-      <label for="user_name" class='dob-label'>Sign Up to edit later</label>
-      <input type="text" placeholder="Username" name='user_name' class='dob'>
-      <input type="password" placeholder="Password" name='user_password' class='dob' pattern=".{8,}"
-        title="Password needs to be eight or more characters">
-      <label for="day" class='dob-label'>Enter your birthday</label>
-      <input type="number" name="day" min="01" max="31" class='dob' placeholder="DD"
-        onchange="if(parseInt(this.value,10)<10 && this.value.length<2)this.value='0'+this.value;" required>
-      <input type="number" name="month" min="01" max="12" class='dob' placeholder="MM"
-        onchange="if(parseInt(this.value,10)<10 && this.value.length<2)this.value='0'+this.value;" required>
-      <input type="number" name="year" min="1900" max="2020" class='dob' placeholder="YYYY" required>
-      <label for="planets" class='dob-label'>Pick a planet to see your age there:</label>
-      <select name="planets" id="planets" class='dob'>
-        <option>SELECT PLANET</option>
-        <option value="PLUTO">PLUTO</option>
-        <option value="EARTH'S MOON">EARTH'S MOON</option>
-        <option value="MARS">MARS</option>
-        <option value="VENUS">VENUS</option>
-      </select>
-      <input type="submit" value="Discover" id='search-submit' class='dob'>
-    </form>
-  </main>
+      <section id="all">
+        <section class="team-member">
+            <section class="team-member-holder">
+                <section class="team-member-image">
+                    <img src="imgs/dana.png" alt="Dana" />
+                    <section class="overlay-content">
+                        <section class="team-member-social-list">
+                            <a class="team-member-social-list-item" href="#"><i class="fa fa-facebook"></i></a>
+                            <a class="team-member-social-list-item" href="#"><i class="fa fa-twitter"></i></a>
+                            <a class="team-member-social-list-item" href="#"><i class="fa fa-envelope"></i></a>
+                        </section>
+                        <a class="view-profile profile-read-more" href="#">Portfolio</a>
+                    </section>
+                </section>
+                <section class="team-member-meta">
+                    <h4 class="team-member-name">Dana Kiswani </h4>
+                </section>
+            </section>
+        </section>
+        <section class="team-member">
+            <section class="team-member-holder">
+                <section class="team-member-image">
+                    <img src="imgs/farah.png" alt="Farah" />
+                    <section class="overlay-content">
+                        <section class="team-member-social-list">
+                            <a class="team-member-social-list-item" href="#"><i class="fa fa-facebook"></i></a>
+                            <a class="team-member-social-list-item" href="#"><i class="fa fa-twitter"></i></a>
+                            <a class="team-member-social-list-item" href="#"><i class="fa fa-envelope"></i></a>
+                        </section>
+                        <a class="view-profile profile-read-more" href="#">Portfolio</a>
+                    </section>
+                </section>
+                <section class="team-member-meta">
+                    <h4 class="team-member-name">Farah Alzuot</h4>
+                </section>
+            </section>
+        </section>
+        <section class="team-member">
+            <section class="team-member-holder">
+                <section class="team-member-image">
+                    <img src="imgs/mahmoud.png" alt="Mohammad" />
+                    <section class="overlay-content">
+                        <section class="team-member-social-list">
+                            <a class="team-member-social-list-item" href="#"><i class="fa fa-facebook"></i></a>
+                            <a class="team-member-social-list-item" href="#"><i class="fa fa-twitter"></i></a>
+                            <a class="team-member-social-list-item" href="#"><i class="fa fa-envelope"></i></a>
+                        </section>
+                        <a class="view-profile profile-read-more" href="#">Portfolio</a>
+                    </section>
+                </section>
+                <section class="team-member-meta">
+                    <h4 class="team-member-name">Mahmoud Ghannam</h4>
+                </section>
+            </section>
+        </section>
+        <section class="team-member">
+            <section class="team-member-holder">
+                <section class="team-member-image">
+                    <img src="imgs/rania.png" alt="rania" />
+                    <section class="overlay-content">
+                        <section class="team-member-social-list">
+                            <a class="team-member-social-list-item" href="#"><i class="fa fa-facebook"></i></a>
+                            <a class="team-member-social-list-item" href="#"><i class="fa fa-twitter"></i></a>
+                            <a class="team-member-social-list-item" href="#"><i class="fa fa-envelope"></i></a>
+                        </section>
+                        <a class="view-profile profile-read-more" href="#">Portfolio</a>
+                    </section>
+                </section>
+                <section class="team-member-meta">
+                    <h4 class="team-member-name">Rania Abdullah</h4>
+                </section>
+            </section>
+        </section>
+        <section class="team-member">
+            <section class="team-member-holder">
+                <section class="team-member-image">
+                    <img src="../imgs/sally.png" alt="sally" />
+                    <section class="overlay-content">
+                        <section class="team-member-social-list">
+                            <a class="team-member-social-list-item" href="#"><i class="fa fa-facebook"></i></a>
+                            <a class="team-member-social-list-item" href="#"><i class="fa fa-twitter"></i></a>
+                            <a class="team-member-social-list-item" href="#"><i class="fa fa-envelope"></i></a>
+                        </section>
+                        <a class="view-profile profile-read-more" href="#">Portfolio</a>
+                    </section>
+                </section>
+                <section class="team-member-meta">
+                    <h4 class="team-member-name">Sally Ammous</h4>
+                </section>
+            </section>
+        </section>
+    </section>
+      </main>
+  </section>
   <footer>
 
   </footer>
