@@ -1,0 +1,32 @@
+#search, #update-delete{
+    width: 300px;
+    display: inline-flex;
+    justify-content: center;
+    align-content: center;
+    flex-wrap: wrap;
+}
+
+#search input, #search label, #search select, #update-delete input, #update-delete label, #update-delete select{
+    width:300px;
+    height: 30px;
+    margin: 10px;
+    border-radius: 3px;
+}
+
+#update-delete label, #search label{
+    height: 20px;
+}
+
+#search-submit, #update-submit, #delete-submit{
+    width: 300px;
+    border: none;
+    font-weight: 600;
+    text-transform: uppercase;
+}
+
+#search-submit:hover, #update-submit:hover, #delete-submit:hover{
+    cursor: pointer;
+    background-color: black;
+    color: white;
+}
+
