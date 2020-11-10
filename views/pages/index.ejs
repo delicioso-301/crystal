@@ -9,7 +9,7 @@
 </head>
 
 <body>
-  <%- include('../partials/header.ejs') %>
+  <%- include('../partials/headerhome.ejs') %>
   <main>
     <section id='banner'>
       <% for(let i = (length-5); i < length; i++ ){%>
@@ -35,28 +35,33 @@
       </section>
       <%}%>
 
-    </section id='sign-up'>
-    <form id='search' action="/details" method="POST">
-      <label for="user_name" class='dob-label'>Sign Up to edit later</label>
-      <input type="text" placeholder="Username" name='user_name' class='dob'>
-      <input type="password" placeholder="Password" name='user_password' class='dob' pattern=".{8,}"
-        title="Password needs to be eight or more characters">
-      <label for="day" class='dob-label'>Enter your birthday</label>
-      <input type="number" name="day" min="01" max="31" class='dob' placeholder="DD"
-        onchange="if(parseInt(this.value,10)<10 && this.value.length<2)this.value='0'+this.value;" required>
-      <input type="number" name="month" min="01" max="12" class='dob' placeholder="MM"
-        onchange="if(parseInt(this.value,10)<10 && this.value.length<2)this.value='0'+this.value;" required>
-      <input type="number" name="year" min="1900" max="2020" class='dob' placeholder="YYYY" required>
-      <label for="planets" class='dob-label'>Pick a planet to see your age there:</label>
-      <select name="planets" id="planets" class='dob'>
-        <option>SELECT PLANET</option>
-        <option value="PLUTO">PLUTO</option>
-        <option value="EARTH'S MOON">EARTH'S MOON</option>
-        <option value="MARS">MARS</option>
-        <option value="VENUS">VENUS</option>
-      </select>
-      <input type="submit" value="Discover" id='search-submit' class='dob'>
-    </form>
+    </section>
+    <section id='sign-in'>
+      <form id='search' action="/details" method="POST">
+        <label for="user_name" class='dob-label'>Sign Up to edit later</label>
+        <input type="text" placeholder="Username" name='user_name' class='dob'>
+        <input type="password" placeholder="Password" name='user_password' class='dob' pattern=".{8,}"
+          title="Password needs to be eight or more characters">
+        <label for="day" class='dob-label'>Enter your birthday</label>
+        <input type="number" name="day" min="01" max="31" class='dob' placeholder="DD"
+          onchange="if(parseInt(this.value,10)<10 && this.value.length<2)this.value='0'+this.value;" required>
+        <input type="number" name="month" min="01" max="12" class='dob' placeholder="MM"
+          onchange="if(parseInt(this.value,10)<10 && this.value.length<2)this.value='0'+this.value;" required>
+        <input type="number" name="year" min="1900" max="2020" class='dob' placeholder="YYYY" required>
+        <label for="planets" class='dob-label'>Pick a planet to see your age there:</label>
+        <select name="planets" id="planets" class='dob'>
+          <option>SELECT PLANET</option>
+          <option value="PLUTO">PLUTO</option>
+          <option value="EARTH'S MOON">EARTH'S MOON</option>
+          <option value="MARS">MARS</option>
+          <option value="VENUS">VENUS</option>
+        </select>
+        <input type="submit" value="Discover" id='search-submit' class='dob'>
+      </form>
+    </section>
+    <section id='about-us'>
+
+    </section>
   </main>
   <footer>
 

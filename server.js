@@ -130,7 +130,7 @@ function updateData(req, res) {
   const search = 'SELECT * FROM users WHERE user_name=$1 AND user_password=$2;';
   client.query(search, [name, pass]).then((data) => {
     if (data.rows[0] === undefined) {
-      res.send('<script>alert("Invalid USER or PASSWORD entered.");window.location="/"</script>');
+      res.send('<script>alert("Invalid USER or PASSWORD entered."); window.location="/"</script>');
     } else if (Number(req.params.id) === Number(data.rows[0].birthday_id)) {
       let sql = `UPDATE birthday SET nasa_name=$1 WHERE ID=$2 RETURNING *;`;
       client.query(sql, [req.body.nasa_name, data.rows[0].birthday_id]).then((newData) => {
