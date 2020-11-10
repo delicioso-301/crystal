@@ -9,21 +9,30 @@
 </head>
 
 <body>
-  <section>
-    <h2><%=data.birth_day +'/'+ data.birth_month+'/'+data.birth_year%></h2>
-    <img src="<%=data.nasa_url%>" alt="">
-    <h2><%=data.nasa_name%></h2>
-    <h3>"<%=data.fact_text%>"</h3>
-  </section>
-  <form action="/selection/<%= data.id %>?_method=put" method="post">
-    <input type="text" placeholder="Username" name='user_name' required>
-    <input type="password" placeholder="Password" name='user_password' required>
-    <label for="nasa_name">Enter your name to rename the image:</label>
-    <input type="text" name="nasa_name" value="<%=data.nasa_name%>">
-    <input type="submit" name='update' value="Update Name">
-    <input type="submit" name='delete' value="Delete" formaction="/selection/<%= data.id %>?_method=DELETE">
-  </form>
+  <header>
 
+  </header>
+  <main>
+    <section class='details'>
+      <h2><%=data.birth_day +'/'+ data.birth_month+'/'+data.birth_year%></h2>
+      <img src="<%=data.nasa_url%>" alt="">
+      <h3><%=data.nasa_name%></h3>
+      <h4>"<%=data.fact_text%>"</h4>
+    </section>
+    <section id='sign-in'>
+      <form id='update-delete' action="/selection/<%= data.id %>?_method=put" method="post">
+        <input type="text" placeholder="Username" name='user_name' class='dob' required>
+        <input type="password" placeholder="Password" name='user_password' class='dob' required>
+        <label for="nasa_name" class='dob-label'>Enter your name to rename the image:</label>
+        <input type="text" name="nasa_name" value="<%=data.nasa_name%>">
+        <input type="submit" name='update' value="Update Name" id='update-submit' class='dob'>
+        <input type="submit" name='delete' value="Delete" formaction="/selection/<%= data.id %>?_method=DELETE" id='delete-submit' class='dob'>
+      </form>
+    </section>
+  </main>
+  <footer>
+
+  </footer>
 </body>
 
 </html>

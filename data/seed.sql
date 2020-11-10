@@ -11,11 +11,10 @@
    'June 14th is the day in 1952 that the keel is laid for the nuclear submarine USS Nautilus.'
   );
 
-  INSERT INTO users(user_name, user_password, user_email, birthday_id)
+  INSERT INTO users(user_name, user_password, birthday_id)
    VALUES (
     'dana-kiswani',
     '123456789',
-    'dana-kiswani@gmail.com',
     (SELECT MAX(Id) FROM birthday)
   );
 
@@ -32,35 +31,34 @@
     'August 3rd is the day in 1946 that Santa Claus Land, the first themed amusement park in the world, opens in Santa Claus, Indiana, US.'
   );
 
-  INSERT INTO users(user_name, user_password, user_email, birthday_id)
+  INSERT INTO users(user_name, user_password, birthday_id)
    VALUES (
     'sallytareq',
     '123456789',
-    'sally.ammous@gmail.com',
     (SELECT MAX(Id) FROM birthday)
   );
-    --------- RANIA
+    
+  --------- RANIA
 
   INSERT INTO birthday(birth_day, birth_month, birth_year, nasa_name, nasa_url, fact_year, fact_text)
   VALUES (
    '28',
    '06',
-   '1998',
-   'Comet Hale-Bopp Over Val Parola Pass',
-   'https://apod.nasa.gov/apod/image/9703/halebopp5_aac_big.jpg',
-   '1989',
-   'June 28th is the day in 1989 that the 600th anniversary of the Battle of Kosovo.'
+   '1996',
+   'A Distant Galaxy in the Deep Field',
+   'https://apod.nasa.gov/apod/image/distant_hst_big.jpg',
+   '1948',
+   'June 28th is the day in 1948 that the Cominform circulates the "Resolution on the situation in the Communist Party of Yugoslavia"; Yugoslavia is expelled from the Communist bloc.'
   );
 
-  INSERT INTO users(user_name, user_password, user_email, birthday_id)
+  INSERT INTO users(user_name, user_password, birthday_id)
    VALUES (
     'raniaabdullahh',
     '123456789',
-    'raniaabdullah6600@gmail.com',
     (SELECT MAX(Id) FROM birthday)
   );
 
-    --------- FARAH
+  --------- FARAH
 
   INSERT INTO birthday(birth_day, birth_month, birth_year, nasa_name, nasa_url, fact_year, fact_text)
   VALUES (
@@ -73,11 +71,10 @@
     'July 3rd is the day in 1970 that a British Dan-Air De Havilland Comet chartered jetliner crashes into mountains north of Barcelona, Spain killing 113 people.'
   );
 
-  INSERT INTO users(user_name, user_password, user_email, birthday_id)
+  INSERT INTO users(user_name, user_password, birthday_id)
    VALUES (
     'farahzuot',
     '123456789',
-    'farahz997@eng.hu.edu.jo',
     (SELECT MAX(Id) FROM birthday)
   );
 
@@ -95,10 +92,9 @@
     'May 25th is the day in 567 BC that Servius Tullius, king of Rome, celebrates a triumph for his victory over the Etruscans.'
   );
 
-  INSERT INTO users(user_name, user_password, user_email, birthday_id)
+  INSERT INTO users(user_name, user_password, birthday_id)
    VALUES (
     'mahmoudghnnam',
     '123456789',
-    'mahmou999@gmail.com',
     (SELECT MAX(Id) FROM birthday)
   );

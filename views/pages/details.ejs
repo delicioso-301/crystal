@@ -10,19 +10,18 @@
 
 <body>
   <header>
-    <h1>
-      Results
-    </h1>
+
   </header>
   <main>
-    <section>
+    <section class='details'>
+      <h2><%= 'Hello ' + user.name + '!' %></h2>
       <img src="<%= birthday.nasa_url %>" alt="<%= birthday.nasa_name %>">
-      <h2><%= birthday.nasa_name %></h2>
+      <h3><%= birthday.nasa_name %></h3>
       <br>
-      <h2>On your birthday in the year <%= birthday.fact_year %> : <%= birthday.fact_text %></h2>
+      <h4><%= birthday.fact_text %></h4>
     </section>
     <section>
-      <article>
+      <article id='planet-age'>
         <% if(planet==='EARTH\'S MOON'){ %>
         <img src="https://www.nasa.gov/sites/default/files/images/main_moon.jpg" alt="moon">
         <h4>Your age on the Earth's Moon : <%=age%> years</h4>
@@ -48,7 +47,6 @@
     <section>
       <form id='auto_submit' name='autoSubmit' action="/save" method="post">
         <input type="hidden" name='user_name' value="<%= user.name %>">
-        <input type="hidden" name='user_email' value="<%= user.email %>">
         <input type="hidden" name='user_password' value="<%= user.pass %>">
 
         <input type="hidden" name="day" value="<%= birthday.birth_day %>">

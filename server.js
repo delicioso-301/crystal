@@ -39,19 +39,20 @@ app.get('/', getFromDatabase);
 app.post('/details', detailsFunction);
 app.post('/save', saveFunction);
 app.post('/selection', selectFunction);
-app.put('/selection/:id',updateData);
-app.get('/selection/:id',showUpdatedData);
-app.delete('/selection/:id',deleteData);
+app.put('/selection/:id', updateData);
+app.get('/selection/:id', showUpdatedData);
+app.delete('/selection/:id', deleteData);
 app.use('*', errorFunction);
 
 
 // Handlers
 // home
 function getFromDatabase(req, res) {
-  let sql = `select * from birthday;`;
-  client.query(sql).then((data) => {
+  let sql = `SELECT * FROM birthday;`;
+  client.query(sql).then((birthdayData) => {
     res.render('./pages/index.ejs', {
-      birthDayInfo: data.rows
+      birthDayInfo: birthdayData.rows,
+      length: birthdayData.rowCount
     });
   });
 }
@@ -63,7 +64,7 @@ function detailsFunction(request, response) {
   const day = request.body.day.toString();
   const month = request.body.month.toString();
   const yearNasa = yearCheck(request.body.year.toString());
-  const user = { name: request.body.user_name, pass: request.body.user_password, email: request.body.user_email };
+  const user = { name: request.body.user_name, pass: request.body.user_password};
   const year = request.body.year.toString();
   const urlNasa = `https://api.nasa.gov/planetary/apod?date=${yearNasa}-${month}-${day}&api_key=${NASA_API_KEY}`;
   const urlFact = `http://numbersapi.com/${month}/${day}/date?json`;
@@ -78,7 +79,7 @@ function detailsFunction(request, response) {
       factResp = factData.body;
     }).then(() => {
       let birthday = new Birthday(day, month, year, nasaResp, factResp);
-      const responseObject = { birthday: birthday, age: age, planet: planet, user:user};
+      const responseObject = { birthday: birthday, age: age, planet: planet, user: user };
       response.status(200).render('./pages/details.ejs', responseObject);
     });
   }).catch(console.error);
@@ -92,21 +93,21 @@ function saveFunction(request, response) {
   const year = request.body.year.toString();
   const nasa = { title: request.body.title, hdurl: request.body.hdurl };
   const fact = { text: request.body.text, year: request.body.fact_year };
-  const user = { name: request.body.user_name, pass: request.body.user_password, email: request.body.user_email };
+  const user = { name: request.body.user_name, pass: request.body.user_password};
 
   const search = 'SELECT u.birthday_id FROM users u WHERE u.user_name=$1 AND u.user_password=$2;';
   const safeValues = [user.name, user.pass];
+  const insertBirthday = 'INSERT INTO birthday (birth_day, birth_month, birth_year, nasa_name, nasa_url, fact_year, fact_text) VALUES($1,$2,$3,$4,$5,$6,$7);';
+  const insertUser = 'INSERT INTO users(user_name, user_password, birthday_id) VALUES ($1,$2,(SELECT MAX(Id) FROM birthday));';
+  let newBirthday = [day, month, year, nasa.title, nasa.hdurl, fact.year, fact.text];
+  let newUser = [user.name, user.pass];
 
   client.query(search, safeValues).then(results => {
     if (!(results.rowCount === 0)) {
-      console.log('already in database');
+      client.query(insertBirthday, newBirthday).then(() => {
+        console.log('Birthday added, no user');
+      });
     } else {
-      const insertBirthday = 'INSERT INTO birthday (birth_day, birth_month, birth_year, nasa_name, nasa_url, fact_year, fact_text) VALUES($1,$2,$3,$4,$5,$6,$7);';
-      const insertUser = 'INSERT INTO users(user_name, user_password, user_email, birthday_id) VALUES ($1,$2,$3,(SELECT MAX(Id) FROM birthday));';
-
-      let newBirthday = [day, month, year, nasa.title, nasa.hdurl, fact.year, fact.text];
-      let newUser = [user.name, user.pass, user.email];
-
       client.query(insertBirthday, newBirthday).then(() => {
         client.query(insertUser, newUser);
       });
@@ -118,7 +119,7 @@ function saveFunction(request, response) {
 function selectFunction(req, res) {
   let data = req.body;
   res.render('./pages/selection.ejs', {
-    data:data
+    data: data
   });
 }
 
@@ -132,14 +133,14 @@ function updateData(req, res) {
       res.send('<script>alert("Invalid USER or PASSWORD entered.");window.location="/"</script>');
     } else if (Number(req.params.id) === Number(data.rows[0].birthday_id)) {
       let sql = `UPDATE birthday SET nasa_name=$1 WHERE ID=$2 RETURNING *;`;
-      client.query(sql, [req.body.nasa_name,data.rows[0].birthday_id]).then((newData) => {
+      client.query(sql, [req.body.nasa_name, data.rows[0].birthday_id]).then((newData) => {
         res.redirect(`/selection/${newData.rows[0].id}`);
       });
     }
   });
 }
 
-function showUpdatedData(req,res){
+function showUpdatedData(req, res) {
   let sql = `select * from birthday where id=$1;`;
   let safeValues = [req.params.id];
   client.query(sql, safeValues).then(data => {
@@ -188,15 +189,15 @@ function Birthday(day, month, year, nasaResp, factResp) {
 // Helpers
 
 // Calculate user age
-function getAge(date){
-  let diff = new Date()-new Date(date);
-  let age = Math.floor(diff/31557600000);
+function getAge(date) {
+  let diff = new Date() - new Date(date);
+  let age = Math.floor(diff / 31557600000);
   return age;
 }
 // Check NASA API year input
-function yearCheck(req){
+function yearCheck(req) {
   let year;
-  if (Number(req) >= 1996){
+  if (Number(req) >= 1996) {
     year = req;
   } else {
     year = '1996';
