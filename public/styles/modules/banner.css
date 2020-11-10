@@ -1,0 +1,125 @@
+@import url('https://fonts.googleapis.com/css2?family=Life+Savers:wght@700&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=Hind+Vadodara:wght@300&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=Saira+Semi+Condensed&display=swap');
+
+/* container */
+
+#banner {
+  max-width: 1000px;
+  position: relative;
+  margin: auto;
+  display: grid;
+  /* height: 550px; */
+
+}
+
+/* buttons */
+.previous, .next {
+  cursor: pointer;
+  position: absolute;
+  top: 50%;
+  right: 97%;
+  width: auto;
+  padding: 16px;
+  margin-top: -22px;
+  color: rgb(8, 8, 8);
+  font-weight: bold;
+  font-size: 22px;
+  transition: 0.6s ease;
+  border-radius: 3px 0 0 3px;
+  user-select: none;
+}
+
+.next {
+  right: 0;
+  border-radius: 0 3px 3px 0;
+}
+
+.previous:hover, .next:hover {
+  background-color: rgba(0,0,0,0.8);
+}
+
+.pick-section {
+    cursor: pointer;
+    height: 18px;
+    width: 18px;
+    margin: 0 2px;
+    background-color: #bbb;
+    border-radius: 50%;
+    display: inline-block;
+    margin-top: 40px;
+    transition: background-color 0.6s ease;
+  }
+  
+  .active, .pick-section:hover {
+    background-color: #5f5a5a;
+  }
+
+  /* elements */
+
+ #span1 img {
+    width: 300px;
+    height: 300px;
+    border-radius: 50%;
+    border: 1px solid rgb(153, 156, 153);
+    box-shadow: 5px 10px 18px #867c7c;
+}
+
+#span1 {
+    float: left;
+    margin-left: 12%;
+}
+#span2 {
+ text-align: left;
+ display: block;
+ margin-top: 5%;
+ margin-left: 48%;
+ width: 40%;
+ height: 200px;
+}
+
+#span2 h2 {
+    padding-bottom: 30px;
+    font-family: 'Life Savers', cursive;
+    font-size: 22px;
+}
+#span2 h3,h4 {
+    padding-bottom: 10px;
+    font-size: 25px;
+    font-family: 'Hind Vadodara', sans-serif;
+}
+#span2 h4 {
+
+    font-size: 20px;
+
+}
+
+#details-submit {
+   margin-left: 15%;
+   width: 150px;
+   height: 40px;
+   border: none;
+   font-family: 'Saira Semi Condensed', sans-serif;
+   font-size: 17px;
+   background-color: black;
+   color: white;
+   cursor: pointer;
+   border-radius: 3px;
+
+}
+#details-submit:hover {
+    background-color: #d3d3d3;
+    color: black;
+    transition: 0.6s ease;
+ }
+
+ #span4 {
+     display: block;
+     margin-top: 5%;
+     margin-left: 40%;
+    
+ }
+
+#search {
+    margin-top: 15%;
+}

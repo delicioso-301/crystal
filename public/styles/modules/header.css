@@ -1,0 +1,63 @@
+header{
+    width: 100%;
+    display: flex;
+    justify-content: space-between;
+    align-content: center;
+    background-color: black;
+    overflow: hidden;
+}
+.navbar {
+    position: relative;
+}
+  
+.navbar #myLinks {
+    display: none;
+    line-height: 28px;
+    float: right;
+}
+  
+.navbar a , .logo {
+    float: left;
+    color: white;
+    text-decoration: none;
+    font-size: 17px;
+    margin: 0px 35px;
+}
+  
+.navbar a:hover {
+    background-color: #ddd;
+    color: black;
+}
+  
+.logo {
+    color: white;
+    line-height: 28px;
+    margin-right: 0px;
+    margin-left: 20px;
+}
+
+.container {
+    cursor: pointer;
+    margin-right: 20px;
+}
+  
+.bar1, .bar2, .bar3 {
+    width: 30px;
+    height: 3px;
+    background-color: white;
+    margin: 5px 0;
+    transition: 0.4s;
+    border-radius: 2px;
+}
+  
+.change .bar1 {
+    transform: rotate(-45deg) translate(-6px, 5px);
+}
+  
+.change .bar2 {
+    opacity: 0;
+}  
+
+.change .bar3 {
+    transform: rotate(45deg) translate(-6px, -6px);
+}

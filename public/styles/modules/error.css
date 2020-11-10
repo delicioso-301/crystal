@@ -1,0 +1,15 @@
+#error{
+    display: flex;
+    justify-content: center;
+    align-content: center;
+}
+#four{
+    font-size: x-large;
+    font-weight: 600;
+    text-transform: uppercase;
+}
+#four span{
+    display: block;
+    font-size: 50px;
+    font-weight: 800;
+}
