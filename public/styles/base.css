@@ -1,8 +1,9 @@
+body{
+    display: flex;
+    justify-content: center;
+    flex-wrap: wrap;
+}
+
 main{
     display: block;
-    margin: 50px 0;
-    text-align: center;
-}
-img{
-    height: 200px;
 }
