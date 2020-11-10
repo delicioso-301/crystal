@@ -11,12 +11,18 @@
 <body>
   <%- include('../partials/header.ejs') %>
   <main>
-    <section class='details'>
-      <h2><%=data.birth_day +'/'+ data.birth_month+'/'+data.birth_year%></h2>
-      <img src="<%=data.nasa_url%>" alt="">
-      <h3><%=data.nasa_name%></h3>
-      <h4>"<%=data.fact_text%>"</h4>
+    <section id="container-two">
+      <section class='details'>
+        <img src="<%=data.nasa_url%>" alt="">
+        <span id="second-span">
+          <h3><%=data.nasa_name%></h3>
+        </span>
+        <h2><%=data.birth_day +'/'+ data.birth_month+'/'+data.birth_year%></h2>
+        <br>
+        <h4 id="fact">"<%=data.fact_text%>"</h4>
+      </section>
     </section>
+  
     <section id='sign-in'>
       <form id='update-delete' action="/selection/<%= data.id %>?_method=put" method="post">
         <input type="text" placeholder="Username" name='user_name' class='dob' required>
