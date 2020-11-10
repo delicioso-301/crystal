@@ -13,59 +13,51 @@
 
   </header>
   <main>
-    <section>
-      <% let counter= birthDayInfo.length;%>
-      <% birthDayInfo.forEach(element=>{%>
-      <article>
-        <%if(counter> counter-5){%>
+    <section id='banner'>
+      <% for(let i = (length-5); i < length; i++ ){%>
+      <section class='banner'>
         <span>
-          <h2> <%=element.birth_day +'/'+ element.birth_month+'/'+element.birth_year%> </h2>
-          <h3>"<%=element.fact_text%>"</h3>
+          <h2> <%=birthDayInfo[i].birth_day +'/'+ birthDayInfo[i].birth_month+'/'+birthDayInfo[i].birth_year%> </h2>
+          <h3>"<%=birthDayInfo[i].fact_text%>"</h3>
         </span>
         <span>
-          <h2><%=element.nasa_name%></h2>
-          <img src="<%=element.nasa_url%>" alt="">
+          <h2><%=birthDayInfo[i].nasa_name%></h2>
+          <img src="<%=birthDayInfo[i].nasa_url%>" alt="">
         </span>
         <form action="/selection" method="POST">
-          <input type="hidden" name="birth_day" value="<%=element.birth_day %>">
-          <input type="hidden" name="birth_month" value="<%= element.birth_month %>">
-          <input type="hidden" name="birth_year" value="<%=element.birth_year%>">
-          <input type="hidden" name="fact_text" value="<%=element.fact_text%>">
-          <input type="hidden" name="nasa_name" value="<%=element.nasa_name%>">
-          <input type="hidden" name="nasa_url" value="<%=element.nasa_url%>">
-          <input type="hidden" name="id" value="<%=element.id%>">
-          <input type="submit" value="view details">
-
+          <input type="hidden" name="birth_day" value="<%=birthDayInfo[i].birth_day %>">
+          <input type="hidden" name="birth_month" value="<%= birthDayInfo[i].birth_month %>">
+          <input type="hidden" name="birth_year" value="<%=birthDayInfo[i].birth_year%>">
+          <input type="hidden" name="fact_text" value="<%=birthDayInfo[i].fact_text%>">
+          <input type="hidden" name="nasa_name" value="<%=birthDayInfo[i].nasa_name%>">
+          <input type="hidden" name="nasa_url" value="<%=birthDayInfo[i].nasa_url%>">
+          <input type="hidden" name="id" value="<%=birthDayInfo[i].id%>">
+          <input type="submit" value="view details" id='details-submit'>
         </form>
-        <%counter--;%>
+      </section>
+      <%}%>
 
-        <%}%>
-              
-               
-            </article>
-
-            <%})%>
-
-    </section>
-    <form action="/details" method="POST">
-      <input type="text" placeholder="Username" name='user_name' class='dob' required />
-      <input type="email" placeholder="Email" name='user_email' class='dob'
-        pattern="[a-z0-9._%+-]+@[a-z0-9.-]+\.[a-z]{2,}$" title="Invalid Email" required />
+    </section id='sign-up'>
+    <form id='search' action="/details" method="POST">
+      <label for="user_name" class='dob-label'>Sign Up to edit later</label>
+      <input type="text" placeholder="Username" name='user_name' class='dob'>
       <input type="password" placeholder="Password" name='user_password' class='dob' pattern=".{8,}"
-        title="Password needs to be eight or more characters" required />
+        title="Password needs to be eight or more characters">
+      <label for="day" class='dob-label'>Enter your birthday</label>
       <input type="number" name="day" min="01" max="31" class='dob' placeholder="DD"
         onchange="if(parseInt(this.value,10)<10 && this.value.length<2)this.value='0'+this.value;" required>
       <input type="number" name="month" min="01" max="12" class='dob' placeholder="MM"
         onchange="if(parseInt(this.value,10)<10 && this.value.length<2)this.value='0'+this.value;" required>
       <input type="number" name="year" min="1900" max="2020" class='dob' placeholder="YYYY" required>
-      <select name="planets" id="planets">
+      <label for="planets" class='dob-label'>Pick a planet to see your age there:</label>
+      <select name="planets" id="planets" class='dob'>
         <option>SELECT PLANET</option>
         <option value="PLUTO">PLUTO</option>
         <option value="EARTH'S MOON">EARTH'S MOON</option>
         <option value="MARS">MARS</option>
         <option value="VENUS">VENUS</option>
       </select>
-      <input type="submit" value="Discover">
+      <input type="submit" value="Discover" id='search-submit' class='dob'>
     </form>
   </main>
   <footer>
