@@ -37,7 +37,6 @@ client.connect().then(() => {
 // Routes
 app.get('/', getFromDatabase);
 app.post('/details', detailsFunction);
-app.post('/save', saveFunction);
 app.post('/selection', selectFunction);
 app.put('/selection/:id', updateData);
 app.get('/selection/:id', showUpdatedData);
@@ -80,39 +79,10 @@ function detailsFunction(request, response) {
     }).then(() => {
       let birthday = new Birthday(day, month, year, nasaResp, factResp);
       const responseObject = { birthday: birthday, age: age, planet: planet, user: user };
+      saveFunction(day, month, year, nasaResp, factResp, user)
       response.status(200).render('./pages/details.ejs', responseObject);
     });
   }).catch(console.error);
-}
-
-// Save
-function saveFunction(request, response) {
-  // console.log(request.body);
-  const day = request.body.day.toString();
-  const month = request.body.month.toString();
-  const year = request.body.year.toString();
-  const nasa = { title: request.body.title, hdurl: request.body.hdurl };
-  const fact = { text: request.body.text, year: request.body.fact_year };
-  const user = { name: request.body.user_name, pass: request.body.user_password};
-
-  const search = 'SELECT u.birthday_id FROM users u WHERE u.user_name=$1 AND u.user_password=$2;';
-  const safeValues = [user.name, user.pass];
-  const insertBirthday = 'INSERT INTO birthday (birth_day, birth_month, birth_year, nasa_name, nasa_url, fact_year, fact_text) VALUES($1,$2,$3,$4,$5,$6,$7);';
-  const insertUser = 'INSERT INTO users(user_name, user_password, birthday_id) VALUES ($1,$2,(SELECT MAX(Id) FROM birthday));';
-  let newBirthday = [day, month, year, nasa.title, nasa.hdurl, fact.year, fact.text];
-  let newUser = [user.name, user.pass];
-
-  client.query(search, safeValues).then(results => {
-    if (!(results.rowCount === 0)) {
-      client.query(insertBirthday, newBirthday).then(() => {
-        console.log('Birthday added, no user');
-      });
-    } else {
-      client.query(insertBirthday, newBirthday).then(() => {
-        client.query(insertUser, newUser);
-      });
-    }
-  });
 }
 
 //Selection
@@ -144,7 +114,7 @@ function showUpdatedData(req, res) {
   let sql = `select * from birthday where id=$1;`;
   let safeValues = [req.params.id];
   client.query(sql, safeValues).then(data => {
-    res.redirect('./pages/selection.ejs', {
+    res.render('./pages/selection.ejs', {
       data: data.rows[0]
     });
   });
@@ -204,3 +174,33 @@ function yearCheck(req) {
   }
   return year;
 }
+// Auto-save to database
+function saveFunction(bDay, bMonth, bYear, nasaResp, factResp, newU){
+  // console.log(request.body);
+  const day = bDay;
+  const month = bMonth;
+  const year = bYear;
+  const nasa = nasaResp;
+  const fact = factResp;
+  const user = newU;
+
+  const search = 'SELECT u.birthday_id FROM users u WHERE u.user_name=$1 AND u.user_password=$2;';
+  const safeValues = [user.name, user.pass];
+  const insertBirthday = 'INSERT INTO birthday (birth_day, birth_month, birth_year, nasa_name, nasa_url, fact_year, fact_text) VALUES($1,$2,$3,$4,$5,$6,$7);';
+  const insertUser = 'INSERT INTO users(user_name, user_password, birthday_id) VALUES ($1,$2,(SELECT MAX(Id) FROM birthday));';
+  let newBirthday = [day, month, year, nasa.title, nasa.hdurl, fact.year, fact.text];
+  let newUser = [user.name, user.pass];
+
+  client.query(search, safeValues).then(results => {
+    if (!(results.rowCount === 0)) {
+      client.query(insertBirthday, newBirthday).then(() => {
+        console.log('Birthday added, no user');
+      });
+    } else {
+      client.query(insertBirthday, newBirthday).then(() => {
+        client.query(insertUser, newUser);
+      });
+    }
+  });
+}
+
