@@ -4,11 +4,11 @@
 
 body {
     font-family: 'Hind Vadodara', sans-serif;
-    display: flex;
+    /* display: flex; */
     justify-content: center;
     flex-wrap: wrap;
     /* background-image: url(https://thumbs.gfycat.com/RigidConcernedGlowworm-max-14mb.gif); */
-    color: aliceblue;
+    color: #c8c7ca;
 
 }
 main{
@@ -18,3 +18,48 @@ img{
     height: 200px;
 }
 
+#intro {
+    width: 60%;
+    margin-bottom: 18%;
+    
+}
+
+#intro h1 {
+    font-size: 30px;
+    text-align: center;
+    margin-bottom: 2%;
+
+}
+
+#planet-intro {
+    width: 60%;
+    margin-top: 10%;
+}
+
+#planet-intro h3{
+    font-size: 25px;
+    margin-bottom: 2%;
+}
+
+.blockquote2 { 
+    position: relative;
+    font-weight: 800;
+    color: #c8c7ca;
+    padding: 30px 0;
+    width: 100%;
+    z-index: 1;
+    margin: 5px auto;
+    align-self: center;
+    border-bottom: solid 1px;
+    top: 10px;
+}/* Blockquote header */
+.blockquote2 p {
+    position: relative;;
+    font-size: 20px;
+    font-weight: 500;
+    line-height: 1;
+    margin: 0;
+    letter-spacing: 1px;
+    line-height: 1.6;
+    margin-bottom: 5%;
+}

@@ -12,10 +12,6 @@
 <body>
   <%- include('../partials/header.ejs') %>
   
-    <div id='stars'></div>
-  <div id='stars2'></div>
-  <div id='stars3'></div>
-  <div id='title'></div>
   <main>
     <section id="container-two">
       <section class='details'>
@@ -25,17 +21,19 @@
         </span>
         <h2><%=data.birth_day +'/'+ data.birth_month+'/'+data.birth_year%></h2>
         <br>
-        <h4 id="fact">"<%=data.fact_text%>"</h4>
+        <section id="factline" class="blockquote">
+          <h4 id="fact">"<%=data.fact_text%>"</h4>
+        </section><br><br><br>
       </section>
     </section>
-  
+    
     <section id='sign-in'>
       <form id='update-delete' action="/selection/<%= data.id %>?_method=put" method="post">
         <input type="text" placeholder="Username" name='user_name' class='dob' required>
         <input type="password" placeholder="Password" name='user_password' class='dob' required>
         <label for="nasa_name" class='dob-label'>Enter your name to rename the image:</label>
         <input type="text" name="nasa_name" value="<%=data.nasa_name%>">
-        <input type="submit" name='update' value="Update Name" id='update-submit' class='dob'>
+        <input type="submit" name='update' value="Update" id='update-submit' class='dob'>
         <input type="submit" name='delete' value="Delete" formaction="/selection/<%= data.id %>?_method=DELETE" id='delete-submit' class='dob'>
       </form>
     </section>
