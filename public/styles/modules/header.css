@@ -5,6 +5,8 @@ header{
     align-content: center;
     background-color: rgba(0, 0, 0, 0.486);
     overflow: hidden;
+    height: 50px;
+    padding-top: 10px;
 }
 .navbar {
     position: relative;

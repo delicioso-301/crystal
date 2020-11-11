@@ -10,10 +10,6 @@
 
 <body>
   <%- include('../partials/header.ejs') %>
-    <div id='stars'></div>
-    <div id='stars2'></div>
-    <div id='stars3'></div>
-    <div id='title'></div>
   <main>
     <section id="container-two">
       <section class='details'>
@@ -28,11 +24,11 @@
       <section>
         <article id='planet-age'>
           <% if(planet==='EARTH\'S MOON'){ %>
-           <img src="https://www.flaticon.com/svg/static/icons/svg/788/788268.svg" alt="">
+           <img src="https://i.ibb.co/6Z9sKmt/uranus-2.png" alt="moon">
           <h4>Your age on the Earth's Moon : <br> <%=age%> years</h4>
           <% }else if(planet==='PLUTO'){ %>
           <%  let age2 = age/248; %>
-            <img src="https://www.flaticon.com/svg/static/icons/svg/788/788268.svg" alt="pluto">
+            <img src="https://i.ibb.co/6Z9sKmt/uranus-2.png" alt="pluto">
           <% if (age2 < 1){ %>
           <h4>Your age on Pluto : <br> less than 1 year ! </h4>
           <% } else{ %>
@@ -40,11 +36,11 @@
           <% } %>
           <% } else if(planet==='MARS'){ %>
           <%  let age2 = age/1.8219; %>
-            <img src="https://www.flaticon.com/svg/static/icons/svg/788/788268.svg" alt="mars">
+            <img src="https://i.ibb.co/6Z9sKmt/uranus-2.png" alt="mars">
           <h4>Your age on Mars : <br> <%= Math.round(age2) %> years </h4>
           <%} else if(planet==='VENUS'){ %>
           <%  let age2 = age/0.616438; %>
-            <img src="https://www.flaticon.com/svg/static/icons/svg/788/788268.svg" alt="venus">
+            <img src="https://i.ibb.co/6Z9sKmt/uranus-2.png" alt="venus">
           <h4>Your age on Venus : <br> <%= Math.round(age2) %> years </h4>
           <% } %>
         </article>
