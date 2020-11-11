@@ -20,8 +20,9 @@
       <section id="intro" class="blockquote2">
         <h1>CRYSTAL</h1>
         <p> 
-          Lorem ipsum, dolor sit amet consectetur adipisicing elit. Iure incidunt pariatur neque, sint deleniti nemo quaerat, non eius sed laudantium iste. Sunt possimus sed doloremque magni tempore corporis quis architecto!</p>
-    </section>
+          Till the day comes for you to discover space, explore what has already been uncovered!
+          <br>
+          We offer you a glimpse of space and history while you wait!    </section>
       <section id='banner'>
         <% for(let i = (length-5); i < length; i++ ){%>
         <section class='banner'>
@@ -42,7 +43,7 @@
             <input type="hidden" name="nasa_name" value="<%=birthDayInfo[i].nasa_name%>">
             <input type="hidden" name="nasa_url" value="<%=birthDayInfo[i].nasa_url%>">
             <input type="hidden" name="id" value="<%=birthDayInfo[i].id%>">
-            <input type="submit" value="view details" id='details-submit'>
+            <input type="submit" value="VIEW DETAILS" id='details-submit'>
           </form>
           <span id="span3">
             <a class="previous" onclick="nextSlide(-1)">&#10094;</a>
@@ -65,12 +66,19 @@
 
    <section id='sign-in'>
     <section id="planet-intro" class="blockquote">
-      <h3>Count Your Age in Space</h3>
+      <h3>A journey into time and space</h3>
       <p> 
-        A year is the time it takes a planet to go around the sun one time. Your age is how many Earth years you have lived. Years are not the same on other planets or moons. If you use another planet’s year, your age would not be the same there as it is on Earth.</p>
+        Using the form below, enter your BIRTHDAY* to see what NASA discovered on that day and to get a fact about history related to the date you entered. Select a planet or moon to see how old you would be today if you lived there!
+        <br><br>
+        NOTE: Signing up is not a requirement, you need to create a user only if you wish to update your birthday details later on.
+        <br>
+        <span>
+          *Disclaimer: If you were born before 1996, your NASA image would be from the year 1996 since NASA did not have space operations before then.
+        </span>
+      </p>
   </section>
       <form id='search' action="/details" method="POST">
-        <label for="user_name" class='dob-label'>Sign Up to edit later</label>
+        <label for="user_name" class='dob-label'>Sign Up</label>
         <input type="text" placeholder="Username" name='user_name' class='dob'>
         <input type="password" placeholder="Password" name='user_password' class='dob' pattern=".{8,}"
           title="Password needs to be eight or more characters">

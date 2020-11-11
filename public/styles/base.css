@@ -20,15 +20,16 @@ img{
 
 #intro {
     width: 60%;
-    margin-bottom: 18%;
+    margin-bottom: 20%;
     
 }
 
 #intro h1 {
-    font-size: 30px;
+    font-size: 45px;
     text-align: center;
     margin-bottom: 2%;
-
+    font-weight: 600 !important;
+    text-shadow: 0px 0px 12px #edf8fd85;
 }
 
 #planet-intro {
@@ -41,18 +42,24 @@ img{
     margin-bottom: 2%;
 }
 
+#planet-intro p span{
+    font-style: oblique;
+}
+
 .blockquote2 { 
     position: relative;
     font-weight: 800;
     color: #c8c7ca;
-    padding: 30px 0;
+    padding: 60px 0;
     width: 100%;
     z-index: 1;
-    margin: 5px auto;
+    margin: 40px auto;
     align-self: center;
-    border-bottom: solid 1px;
+    /* border-bottom: solid 1px; */
     top: 10px;
-}/* Blockquote header */
+    text-align: center;
+}
+/* Blockquote header */
 .blockquote2 p {
     position: relative;;
     font-size: 20px;

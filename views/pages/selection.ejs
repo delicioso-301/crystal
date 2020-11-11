@@ -29,9 +29,10 @@
     
     <section id='sign-in'>
       <form id='update-delete' action="/selection/<%= data.id %>?_method=put" method="post">
+        <label for="user_name">Sign in Required to Update/Delete</label>
         <input type="text" placeholder="Username" name='user_name' class='dob' required>
         <input type="password" placeholder="Password" name='user_password' class='dob' required>
-        <label for="nasa_name" class='dob-label'>Enter your name to rename the image:</label>
+        <label for="nasa_name" class='dob-label'>Enter new name:</label>
         <input type="text" name="nasa_name" value="<%=data.nasa_name%>">
         <input type="submit" name='update' value="Update" id='update-submit' class='dob'>
         <input type="submit" name='delete' value="Delete" formaction="/selection/<%= data.id %>?_method=DELETE" id='delete-submit' class='dob'>

@@ -101,4 +101,6 @@ body {
 a{
   text-decoration:none
 }
-
+#body {
+  text-align: center;
+}
