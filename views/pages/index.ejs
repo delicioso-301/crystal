@@ -12,41 +12,41 @@
 
   <%- include('../partials/headerhome.ejs') %>
   <section id="container">
-  <div id='stars'></div>
-  < div id='stars2'></div>
-  <div id='stars3'></div>
-  <div id='title'></div>
+    <div id='stars'></div>
+    <div id='stars2'></div>
+    <div id='stars3'></div>
+    <div id='title'></div>
     <main>
-       <section id='banner'>
-      <% for(let i = (length-5); i < length; i++ ){%>
-      <section class='banner'>
-        <span id="span1">
-          <img src="<%=birthDayInfo[i].nasa_url%>" alt="">
-        </span>
-        <span id="span2">
-          <h2> <%=birthDayInfo[i].birth_day +'/'+ birthDayInfo[i].birth_month+'/'+birthDayInfo[i].birth_year%> </h2>
-          <h3><%=birthDayInfo[i].nasa_name%></h3>
-          <h4>"<%=birthDayInfo[i].fact_text%>"</h4>
-        </span>
-       
-        <form  action="/selection" method="POST">
-          <input type="hidden" name="birth_day" value="<%=birthDayInfo[i].birth_day %>">
-          <input type="hidden" name="birth_month" value="<%= birthDayInfo[i].birth_month %>">
-          <input type="hidden" name="birth_year" value="<%=birthDayInfo[i].birth_year%>">
-          <input type="hidden" name="fact_text" value="<%=birthDayInfo[i].fact_text%>">
-          <input type="hidden" name="nasa_name" value="<%=birthDayInfo[i].nasa_name%>">
-          <input type="hidden" name="nasa_url" value="<%=birthDayInfo[i].nasa_url%>">
-          <input type="hidden" name="id" value="<%=birthDayInfo[i].id%>">
-          <input type="submit" value="view details" id='details-submit'>
-        </form>
-        <span id="span3">
-          <a class="previous" onclick="nextSlide(-1)">&#10094;</a>
-          <a class="next" onclick="nextSlide(1)">&#10095;</a>  
-        </span>
-      
-        
-      </section>
-      <%}%>
+      <section id='banner'>
+        <% for(let i = (length-5); i < length; i++ ){%>
+        <section class='banner'>
+          <span id="span1">
+            <img src="<%=birthDayInfo[i].nasa_url%>" alt="">
+          </span>
+          <span id="span2">
+            <h2> <%=birthDayInfo[i].birth_day +'/'+ birthDayInfo[i].birth_month+'/'+birthDayInfo[i].birth_year%> </h2>
+            <h3><%=birthDayInfo[i].nasa_name%></h3>
+            <h4>"<%=birthDayInfo[i].fact_text%>"</h4>
+          </span>
+
+          <form action="/selection" method="POST">
+            <input type="hidden" name="birth_day" value="<%=birthDayInfo[i].birth_day %>">
+            <input type="hidden" name="birth_month" value="<%= birthDayInfo[i].birth_month %>">
+            <input type="hidden" name="birth_year" value="<%=birthDayInfo[i].birth_year%>">
+            <input type="hidden" name="fact_text" value="<%=birthDayInfo[i].fact_text%>">
+            <input type="hidden" name="nasa_name" value="<%=birthDayInfo[i].nasa_name%>">
+            <input type="hidden" name="nasa_url" value="<%=birthDayInfo[i].nasa_url%>">
+            <input type="hidden" name="id" value="<%=birthDayInfo[i].id%>">
+            <input type="submit" value="view details" id='details-submit'>
+          </form>
+          <span id="span3">
+            <a class="previous" onclick="nextSlide(-1)">&#10094;</a>
+            <a class="next" onclick="nextSlide(1)">&#10095;</a>
+          </span>
+
+
+        </section>
+        <%}%>
       <span id="span4" >
         <span class="pick-section" onclick="currentSlide(1)"></span> 
         <span class="pick-section" onclick="currentSlide(2)"></span> 
@@ -70,7 +70,12 @@
         <input type="number" name="month" min="01" max="12" class='dob' placeholder="MM"
           onchange="if(parseInt(this.value,10)<10 && this.value.length<2)this.value='0'+this.value;" required>
         <input type="number" name="year" min="1900" max="2020" class='dob' placeholder="YYYY" required>
-        <label for="planets" class='dob-label'>Pick a planet to see your age there:</label>
+        <section class="blockquote">
+          <h3>Count Your Age in Space</h3>
+          <p> 
+            A year is the time it takes a planet to go around the sun one time. Your age is how many Earth years you have lived. Years are not the same on other planets or moons. If you use another planet’s year, your age would not be the same there as it is on Earth.</p>
+      </section>
+        <label for="planets" class='dob-label'></label>
         <select name="planets" id="planets" class='dob'>
           <option>SELECT PLANET</option>
           <option value="PLUTO">PLUTO</option>
@@ -183,35 +188,35 @@
  </section>
   
   <%- include('../partials/footer.ejs') %>
-  
-  <script>
-    let slideIndex = 1;
-    showSlides(slideIndex);
 
-    function nextSlide(n) {
-      showSlides(slideIndex += n);
-    }
+        <script>
+          let slideIndex = 1;
+          showSlides(slideIndex);
 
-    function currentSlide(n) {
-      showSlides(slideIndex = n);
-    }
+          function nextSlide(n) {
+            showSlides(slideIndex += n);
+          }
 
-    function showSlides(n) {
-      var i;
-      var slides = document.getElementsByClassName("banner");
-      var pickSection = document.getElementsByClassName("pick-section");
-      if (n > slides.length) { slideIndex = 1 }
-      if (n < 1) { slideIndex = slides.length }
-      for (i = 0; i < slides.length; i++) {
-        slides[i].style.display = "none";
-      }
-      for (i = 0; i < pickSection.length; i++) {
-        pickSection[i].className = pickSection[i].className.replace(" active", "");
-      }
-      slides[slideIndex - 1].style.display = "block";
-      pickSection[slideIndex - 1].className += " active";
-    }
-  </script>
+          function currentSlide(n) {
+            showSlides(slideIndex = n);
+          }
+
+          function showSlides(n) {
+            var i;
+            var slides = document.getElementsByClassName("banner");
+            var pickSection = document.getElementsByClassName("pick-section");
+            if (n > slides.length) { slideIndex = 1 }
+            if (n < 1) { slideIndex = slides.length }
+            for (i = 0; i < slides.length; i++) {
+              slides[i].style.display = "none";
+            }
+            for (i = 0; i < pickSection.length; i++) {
+              pickSection[i].className = pickSection[i].className.replace(" active", "");
+            }
+            slides[slideIndex - 1].style.display = "block";
+            pickSection[slideIndex - 1].className += " active";
+          }
+        </script>
 
 </body>
 

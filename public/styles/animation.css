@@ -82,7 +82,7 @@ html {
       transform: translateY(0px);
     }
     to {
-      transform: translateY(100px);
+      transform: translateY(-50px);
     }
   }
   /*--------------*/
@@ -93,9 +93,12 @@ html,body{
   font-family: 'Josefin Sans', sans-serif;
 }
 body {
+  height: 100vh;
+  perspective: 2px;
     overflow-y: auto;
     overflow-x: hidden;
 }
 a{
   text-decoration:none
 }
+

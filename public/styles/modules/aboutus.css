@@ -17,7 +17,7 @@ main{
 #firstSec h1{
     font-weight: bold;
      font-size: 30px;
-    font-family: 'Patrick Hand SC', cursive;
+     font-family: 'Hind Vadodara', sans-serif;
     width: 25%;
     height: 50px;
     padding: 10px;
@@ -29,9 +29,9 @@ main{
 
 .team-member-meta h4{
     color: rgb(197, 178, 178);
-    font-family: 'Patrick Hand SC', cursive;
-    font-weight: bold;
-     font-size: 25px;
+    font-family: 'Hind Vadodara', sans-serif;
+    /* font-weight: bold; */
+     font-size: 22px;
 }
 #all{
     /* position: absolute; */
@@ -59,7 +59,7 @@ main{
     overflow: hidden;
     line-height: 0;
     position: relative;
-    padding-bottom: 70%;
+    padding-bottom: 100%;
     display: block;
     position: relative;
     display: block;
@@ -143,3 +143,37 @@ main{
     border-radius: 4px;
 } 
 /*--------*/
+.blockquote { 
+    position: relative;
+    font-weight: 800;
+    color: #c8c7ca
+;
+    padding: 30px 0;
+    width: 100%;
+    z-index: 1;
+    margin: 5px auto;
+    align-self: center;
+    border-top: solid 1px;
+    border-bottom: solid 1px;
+    top: 10px;
+}/* Blockquote header */
+.blockquote p {
+    position: relative;
+;
+    font-size: 20px;
+    font-weight: 500;
+    line-height: 1;
+    margin: 0;
+    letter-spacing: 1px;
+    line-height: 1.6;
+}/* Blockquote right double quotes */
+.blockquote:after {
+    position: absolute;
+    content: "”";
+    color: #c8c7ca
+;
+    font-size: 10rem;
+    line-height: 0;
+    bottom: -43px;
+    right: 30px;
+}

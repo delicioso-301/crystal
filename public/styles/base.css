@@ -7,6 +7,9 @@ body {
     display: flex;
     justify-content: center;
     flex-wrap: wrap;
+    /* background-image: url(https://thumbs.gfycat.com/RigidConcernedGlowworm-max-14mb.gif); */
+    color: aliceblue;
+
 }
 main{
     display: block;
