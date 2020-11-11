@@ -50,32 +50,6 @@
         </article>
       </section>
     </section>
-    
-    <section>
-      <form id='auto_submit' name='autoSubmit' action="/save" method="post">
-        <input type="hidden" name='user_name' value="<%= user.name %>">
-        <input type="hidden" name='user_password' value="<%= user.pass %>">
-
-        <input type="hidden" name="day" value="<%= birthday.birth_day %>">
-        <input type="hidden" name="month" value="<%= birthday.birth_month %>">
-        <input type="hidden" name="year" value="<%= birthday.birth_year %>">
-        <input type="hidden" name="title" value="<%= birthday.nasa_name %>">
-        <input type="hidden" name="hdurl" value="<%= birthday.nasa_url %>">
-        <input type="hidden" name="fact_year" value="<%= birthday.fact_year %>">
-        <input type="hidden" name="text" value="<%= birthday.fact_text %>">
-      </form>
-    </section>
   </main>
-  <%- include('../partials/footer.ejs') %>
-  <script>
-    function autoSubmit() {
-      const form = document.getElementById('auto_submit');
-      form.submit();
-      console.log('from submit')
-    }
-    autoSubmit();
-  </script>
-  <script src="../../server.js"></script>
-
 </body>
 </html>
