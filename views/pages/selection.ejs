@@ -10,6 +10,11 @@
 
 <body>
   <%- include('../partials/header.ejs') %>
+  
+    <div id='stars'></div>
+  <div id='stars2'></div>
+  <div id='stars3'></div>
+  <div id='title'></div>
   <main>
     <section id="container-two">
       <section class='details'>
@@ -33,7 +38,7 @@
         <input type="submit" name='delete' value="Delete" formaction="/selection/<%= data.id %>?_method=DELETE" id='delete-submit' class='dob'>
       </form>
     </section>
-  </main>
+  </main> 
   <%- include('../partials/footer.ejs') %>
 </body>
 </html>

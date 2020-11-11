@@ -144,7 +144,7 @@ function showUpdatedData(req, res) {
   let sql = `select * from birthday where id=$1;`;
   let safeValues = [req.params.id];
   client.query(sql, safeValues).then(data => {
-    res.render('./pages/selection.ejs', {
+    res.redirect('./pages/selection.ejs', {
       data: data.rows[0]
     });
   });

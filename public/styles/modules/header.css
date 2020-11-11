@@ -3,7 +3,7 @@ header{
     display: flex;
     justify-content: space-between;
     align-content: center;
-    background-color: black;
+    background-color: rgba(0, 0, 0, 0.486);
     overflow: hidden;
 }
 .navbar {
