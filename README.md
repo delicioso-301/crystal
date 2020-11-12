@@ -1,10 +1,8 @@
 # Crystal  
 
-Crystal is a website that is created as a fake "life predictor" or a gag fortune teller. The user can enter their date of birth and search, to which an album, movie and celebrity will be returned. This information represents the following:
+As a child, growing up to shows like "The Jetsons" and movies like “Star Trek”, you grow up with the hopes that the future is filled with flying cars and space travel.
+The sad reality is, in 2020 we are still not there yet. So, while people like Elon Musk and his team at SpaceX, work on getting us to that point, we created what we would call a space waiting room. Since we cannot actually take you to space, we thought we could bring a piece of space to you; using our website, through the power of APIs and some math, you can discover what NASA saw on your birthday, and you can also see how old you would be if you lived on a different planet. 
 
-1. Album: the soundtrack of your life
-2. Movie: the way your life will end up
-3. Celeb: your ideal best friend
 
 The minimum viable product (MVP) for this project is to have the user be able to search for the details related to their birthday.
 
@@ -18,4 +16,4 @@ The minimum viable product (MVP) for this project is to have the user be able to
 
 ## Wireframe and Database Table
 
-![Crystal - with about us page](https://i.ibb.co/6ZwLJby/crystal-2.png)
+![Crystal - with about us page](./public/img/tot.png)
